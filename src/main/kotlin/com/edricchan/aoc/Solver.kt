@@ -17,7 +17,7 @@ fun getInput(year: Int, day: Int, fileName: String = "input.txt") =
  */
 // TODO: Add benchmarking support
 fun solve(benchmark: Boolean = true, block: () -> Puzzle<*,*>) {
-
+    printResult(block)
 }
 
 fun printResult(block: () -> Puzzle<*, *>) {
