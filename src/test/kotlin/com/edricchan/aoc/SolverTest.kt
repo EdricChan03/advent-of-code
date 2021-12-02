@@ -1,9 +1,5 @@
-package com.edricchan.aoc.year2021
+package com.edricchan.aoc
 
-import com.edricchan.aoc.Puzzle
-import com.edricchan.aoc.getInput
-import com.edricchan.aoc.printResult
-import com.edricchan.aoc.solve
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
@@ -13,7 +9,6 @@ import io.kotest.property.checkAll
 import io.mockk.*
 import java.io.BufferedReader
 import java.io.ByteArrayOutputStream
-import java.io.File
 import java.io.PrintStream
 
 class SolverTest : DescribeSpec({
