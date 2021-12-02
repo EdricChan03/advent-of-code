@@ -6,7 +6,7 @@ package com.edricchan.aoc
  * @param day The day of the puzzle.
  */
 fun getInput(year: Int, day: Int, fileName: String = "input.txt") =
-    Puzzle::class.java.classLoader.getResourceAsStream("aoc/year$year/day$day/input.txt")
+    Puzzle::class.java.classLoader.getResourceAsStream("aoc/year$year/day$day/$fileName")
         .bufferedReader()
         .readLines()
 
