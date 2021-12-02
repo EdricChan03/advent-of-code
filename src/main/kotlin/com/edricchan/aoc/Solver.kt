@@ -7,8 +7,9 @@ package com.edricchan.aoc
  */
 fun getInput(year: Int, day: Int, fileName: String = "input.txt") =
     Puzzle::class.java.classLoader.getResourceAsStream("aoc/year$year/day$day/$fileName")
-        .bufferedReader()
-        .readLines()
+        ?.bufferedReader()
+        ?.readLines()
+        .orEmpty()
 
 /**
  * Solves the specified puzzle.
