@@ -1,7 +1,8 @@
-package com.edricchan.aoc.year2021.day02
+package com.edricchan.aoc.year2021
 
 import com.edricchan.aoc.Puzzle
 import com.edricchan.aoc.solve
+import com.edricchan.aoc.year2021.day02.SubmarineCommand
 
 fun main() = solve { Day02() }
 
