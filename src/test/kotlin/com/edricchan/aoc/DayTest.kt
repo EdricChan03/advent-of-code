@@ -12,17 +12,19 @@ fun <PartOneOutput, PartTwoOutput> puzzleTests(
 ) = describeSpec {
     val (puzzle, part1Ans, part2Ans) = puzzleTestData
 
-    describe("part one") {
-        it("should produce the correct output") {
-            val output = puzzle.solvePartOne()
-            output shouldBe part1Ans
+    describe("Day ${puzzle.day}") {
+        describe("part one") {
+            it("should produce the correct output") {
+                val output = puzzle.solvePartOne()
+                output shouldBe part1Ans
+            }
         }
-    }
 
-    describe("part two") {
-        it("should produce the correct output") {
-            val output = puzzle.solvePartTwo()
-            output shouldBe part2Ans
+        describe("part two") {
+            it("should produce the correct output") {
+                val output = puzzle.solvePartTwo()
+                output shouldBe part2Ans
+            }
         }
     }
 }
