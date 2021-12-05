@@ -1,14 +1,17 @@
 package com.edricchan.aoc
 
 import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.engine.spec.tempfile
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
-import io.kotest.property.arbitrary.int
-import io.kotest.property.arbitrary.string
+import io.kotest.property.arbitrary.*
 import io.kotest.property.checkAll
-import io.mockk.*
-import java.io.BufferedReader
+import io.mockk.every
+import io.mockk.mockkStatic
+import io.mockk.spyk
+import io.mockk.verify
 import java.io.ByteArrayOutputStream
+import java.io.File
 import java.io.PrintStream
 
 class SolverTest : DescribeSpec({
@@ -31,58 +34,87 @@ class SolverTest : DescribeSpec({
         System.setErr(defaultErrStream)
     }
 
-    // Test puzzle data
-    val (partOne, partTwo, year, day) = Arb.int().samples()
-        .take(4).map { it.value }.toList()
+    data class PuzzleData<O1, O2>(
+        val puzzle: Puzzle<O1, O2>, val part1Ans: Int, val part2Ans: Int, val year: Int, val day: Int
+    )
 
-    class TestPuzzle : Puzzle<Int, Int>(year = year, day = day) {
-        override fun solvePartOne(): Int {
-            return partOne
+    fun getRandomPuzzle(): PuzzleData<Int, Int> {
+        // Test data
+        val (part1Ans, part2Ans) = Arb.int().samples().take(2).map { it.value }.toList()
+
+        val (year, day) = Arb.positiveInt().samples().take(2).map { it.value }.toList()
+
+        mockkStatic(::getInput)
+
+        every { getInput(year, day) } returns listOf()
+
+        class TestPuzzle : Puzzle<Int, Int>(year = year, day = day) {
+            override fun solvePartOne(): Int {
+                return part1Ans
+            }
+
+            override fun solvePartTwo(): Int {
+                return part2Ans
+            }
         }
 
-        override fun solvePartTwo(): Int {
-            return partTwo
-        }
+        val puzzleMock = spyk(TestPuzzle())
+        every { puzzleMock.input } returns listOf()
+
+        return PuzzleData(puzzleMock, part1Ans, part2Ans, year, day)
     }
 
+
     // TODO: Fix test
-    xdescribe("getInput") {
+    describe("getInput") {
+        fun getResourceLoader(file: File, expectedName: String) = ResourceLoader {
+            it shouldBe expectedName
+            file.inputStream()
+        }
+
         it("should retrieve the file data") {
-            val bufferedReader = mockk<BufferedReader>()
+            mockkStatic(::getInput)
 
-            checkAll(10, Arb.int(2000..2040), Arb.int(1..31)) { year, day ->
-                val fileData = Arb.string().samples().take(3).map { it.value }.toList()
+            checkAll(
+                // Year, day
+                Arb.positiveInt(), Arb.positiveInt(),
+                // File name
+                Arb.stringPattern("\\w+\\.([A-z]\\d)+"),
+                // File data
+                Arb.list(Arb.string(minSize = 1))
+            ) { year, day, fileName, fileData ->
+                val tempFile = tempfile().apply {
+                    writeText(fileData.joinToString("\n"))
+                }
 
-                every {
-                    bufferedReader.readLines()
-                } returns fileData
-
-                getInput(year, day) shouldBe fileData
+                getInput(
+                    year, day, fileName, getResourceLoader(tempFile, "aoc/year$year/day$day/$fileName")
+                ) shouldBe fileData
             }
         }
     }
 
     describe("printResult") {
         it("should print the result of a puzzle") {
-            mockkStatic(::getInput)
+            val puzzleData = getRandomPuzzle()
 
-            every { getInput(year, day) } returns listOf()
-
-            printResult { TestPuzzle() }
+            printResult { puzzleData.puzzle }
 
             testOutContentStream.toString().trim().replace("\r\n", "\n") shouldBe """
-            $day December $year:
-            Part 1 result: ${TestPuzzle().solvePartOne()}
-            Part 2 result: ${TestPuzzle().solvePartTwo()}
+            ${puzzleData.day} December ${puzzleData.year}:
+            Part 1 result: ${puzzleData.puzzle.solvePartOne()}
+            Part 2 result: ${puzzleData.puzzle.solvePartTwo()}
             """.trimIndent()
         }
     }
 
     describe("solve") {
         it("should call printResult") {
+            val puzzleData = getRandomPuzzle()
+
             mockkStatic(::solve)
 
-            val puzzleFn: () -> Puzzle<*, *> = { TestPuzzle() }
+            val puzzleFn: () -> Puzzle<*, *> = { puzzleData.puzzle }
             val benchmark = true
             solve(benchmark, puzzleFn)
 
