@@ -1,17 +1,17 @@
 package com.edricchan.aoc
 
+import java.io.File
 import java.io.FileNotFoundException
-import java.io.InputStream
 
 /** A resource loader used to retrieve resources. */
 fun interface ResourceLoader {
     /** Retrieves the specified resource given the [file name][fileName]. */
-    fun getResource(fileName: String): InputStream?
+    fun getResource(fileName: String): File?
 
     /** The default resource loader. */
     object Default : ResourceLoader {
-        override fun getResource(fileName: String): InputStream? {
-            return this::class.java.classLoader.getResourceAsStream(fileName)
+        override fun getResource(fileName: String): File? {
+            return this::class.java.classLoader.getResource(fileName)?.toURI()?.let { File(it) }
         }
     }
 }
@@ -30,7 +30,6 @@ fun getInput(
 ) =
     (resourceLoader.getResource("aoc/year$year/day$day/$fileName")
         ?: throw FileNotFoundException("Input file for year $year, day $day does not exist"))
-        .bufferedReader()
         .readLines()
 
 /**

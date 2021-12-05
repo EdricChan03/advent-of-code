@@ -69,7 +69,7 @@ class SolverTest : DescribeSpec({
     describe("getInput") {
         fun getResourceLoader(file: File, expectedName: String) = ResourceLoader {
             it shouldBe expectedName
-            file.inputStream()
+            file
         }
 
         it("should retrieve the file data") {
