@@ -11,7 +11,7 @@ fun interface ResourceLoader {
     /** The default resource loader. */
     object Default : ResourceLoader {
         override fun getResource(fileName: String): InputStream? {
-            return this::class.java.getResourceAsStream(fileName)
+            return this::class.java.classLoader.getResourceAsStream(fileName)
         }
     }
 }
@@ -29,7 +29,7 @@ fun getInput(
     resourceLoader: ResourceLoader = ResourceLoader.Default
 ) =
     (resourceLoader.getResource("aoc/year$year/day$day/$fileName")
-        ?: throw FileNotFoundException("Input file for $year, day $day does not exist"))
+        ?: throw FileNotFoundException("Input file for year $year, day $day does not exist"))
         .bufferedReader()
         .readLines()
 
