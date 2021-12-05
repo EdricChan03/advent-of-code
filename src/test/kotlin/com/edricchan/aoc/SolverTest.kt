@@ -64,6 +64,10 @@ class SolverTest : DescribeSpec({
 
     describe("printResult") {
         it("should print the result of a puzzle") {
+            mockkStatic(::getInput)
+
+            every { getInput(year, day) } returns listOf()
+
             printResult { TestPuzzle() }
 
             testOutContentStream.toString().trim().replace("\r\n", "\n") shouldBe """
