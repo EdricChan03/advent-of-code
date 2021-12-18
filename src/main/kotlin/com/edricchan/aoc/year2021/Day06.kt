@@ -36,7 +36,7 @@ class Day06 : Puzzle<Int, Long>(year = 2021, day = 6) {
         return currTimers.toList()
     }
 
-    // For part 2 (uses a simplified list to store the count of all timers)
+    // For part 2 (uses a map to store the count of all timers)
     fun simulate2(days: Int): Map<Int, Long> {
         var currTimers =
             inputTimers.groupingBy { it }.eachCount().toMutableMap().mapValues { it.value.toLong() }
