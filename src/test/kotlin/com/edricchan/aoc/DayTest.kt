@@ -1,29 +1,32 @@
 package com.edricchan.aoc
 
 import io.kotest.core.spec.style.describeSpec
+import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
 
 /**
  * Creates a test factory given the puzzle and answers as supplied by [PuzzleTestData].
- * @param puzzleTestData The test data.
+ * @param testData The test data.
  */
-fun <PartOneOutput, PartTwoOutput> puzzleTests(
-    puzzleTestData: PuzzleTestData<PartOneOutput, PartTwoOutput>
+fun <Input, PartOneOutput, PartTwoOutput> puzzleTests(
+    testData: PuzzleTestData<Input, PartOneOutput, PartTwoOutput>
 ) = describeSpec {
-    val (puzzle, part1Ans, part2Ans) = puzzleTestData
+    val (_, puzzleFn, part1Ans, part2Ans) = testData
 
-    describe("Day ${puzzle.day}") {
+    describe("Day ${testData.puzzleMeta.day}") {
         describe("part one") {
-            it("should produce the correct output") {
+            withData(nameFn = { it.testName }, part1Ans) { ans ->
+                val puzzle = puzzleFn(ans.input)
                 val output = puzzle.solvePartOne()
-                output shouldBe part1Ans
+                output shouldBe ans.expectedOutput
             }
         }
 
         describe("part two") {
-            it("should produce the correct output") {
+            withData(nameFn = { it.testName }, part2Ans) { ans ->
+                val puzzle = puzzleFn(ans.input)
                 val output = puzzle.solvePartTwo()
-                output shouldBe part2Ans
+                output shouldBe ans.expectedOutput
             }
         }
     }

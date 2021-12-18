@@ -5,6 +5,6 @@ import io.kotest.core.spec.style.DescribeSpec
 
 class Year2021Tests : DescribeSpec({
     puzzles.forEach {
-        include("Year ${it.puzzle.year} ", puzzleTests(it))
+        include("Year ${it.puzzleMeta.year} ", puzzleTests(it))
     }
 })

@@ -1,11 +1,11 @@
 package com.edricchan.aoc.year2021
 
-import com.edricchan.aoc.PuzzleTestData
+import com.edricchan.aoc.puzzles
 
-val puzzles = listOf(
-    PuzzleTestData(Day01(), 7, 5),
-    PuzzleTestData(Day02(), 150, 900),
-    PuzzleTestData(Day03(), 198, 230),
-    PuzzleTestData(Day04(), 4512, 1924),
-    PuzzleTestData(Day05(), 5, 12)
-)
+val puzzles = puzzles(2021) {
+    puzzle(1, Day01(), 7, 5)
+    puzzle(2, Day02(), 150, 900)
+    puzzle(3, Day03(), 198, 230)
+    puzzle(4, Day04(), 4512, 1924)
+    puzzle(5, Day05(), 5, 12)
+}

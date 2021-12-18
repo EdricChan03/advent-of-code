@@ -19,3 +19,9 @@ abstract class Puzzle<PartOneOutput, PartTwoOutput>(
     /** Retrieves the solution for part 2 of type [PartTwoOutput]. */
     abstract fun solvePartTwo(): PartTwoOutput
 }
+
+/** Metadata for a [Puzzle]. This should be implemented by classes that extend from [Puzzle]. */
+data class PuzzleMeta(
+    val year: Int,
+    val day: Int
+)

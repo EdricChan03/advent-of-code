@@ -18,6 +18,7 @@ dependencies {
     testImplementation(platform("io.kotest:kotest-bom:5.0.1"))
     testImplementation("io.kotest:kotest-runner-junit5")
     testImplementation("io.kotest:kotest-property")
+    testImplementation("io.kotest:kotest-framework-datatest")
     // Mockk
     testImplementation("io.mockk:mockk:1.12.1")
 }
