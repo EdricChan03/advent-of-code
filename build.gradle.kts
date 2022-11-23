@@ -1,7 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    kotlin("jvm") version "1.6.10"
+    alias(libs.plugins.kotlin.jvm)
 }
 
 group = "com.edricchan"
@@ -15,12 +16,10 @@ dependencies {
     // Testing frameworks
     testImplementation(kotlin("test"))
     // Kotest
-    testImplementation(platform("io.kotest:kotest-bom:5.0.1"))
-    testImplementation("io.kotest:kotest-runner-junit5")
-    testImplementation("io.kotest:kotest-property")
-    testImplementation("io.kotest:kotest-framework-datatest")
+    testImplementation(platform(libs.kotest.bom))
+    testImplementation(libs.bundles.kotest)
     // Mockk
-    testImplementation("io.mockk:mockk:1.12.1")
+    testImplementation(libs.mockk)
 }
 
 java.toolchain {
