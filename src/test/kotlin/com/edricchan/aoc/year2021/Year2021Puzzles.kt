@@ -10,4 +10,5 @@ val puzzles = puzzles(2021) {
     puzzle(5, Day05(), 5, 12)
     puzzle(6, Day06(), 5934, 26984457539)
     puzzle(7, Day07(), 37, 168)
+    puzzle(8, Day08(), 26, 61229)
 }
