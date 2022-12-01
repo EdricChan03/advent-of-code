@@ -64,14 +64,35 @@ class SolverTest : DescribeSpec({
         return PuzzleData(puzzleMock, part1Ans, part2Ans, year, day)
     }
 
+    fun getResourceLoader(file: File, expectedName: String) = ResourceLoader {
+        it shouldBe expectedName
+        file
+    }
 
-    // TODO: Fix test
-    describe("getInput") {
-        fun getResourceLoader(file: File, expectedName: String) = ResourceLoader {
-            it shouldBe expectedName
-            file
+    fun getExpectedFileName(year: Int, day: Int, fileName: String) = "aoc/year$year/day$day/$fileName"
+
+    describe("getInputAsFile") {
+        it("should retrieve the file") {
+            mockkStatic(::getInputAsFile)
+            val file = tempfile()
+
+            checkAll(
+                // Year, day
+                Arb.positiveInt(), Arb.positiveInt(),
+                // File name
+                Arb.stringPattern("\\w+\\.([A-z]\\d)+"),
+            ) { year, day, fileName ->
+                getInputAsFile(
+                    year,
+                    day,
+                    fileName,
+                    getResourceLoader(file, getExpectedFileName(year, day, fileName))
+                ) shouldBe file
+            }
         }
+    }
 
+    describe("getInput") {
         it("should retrieve the file data") {
             mockkStatic(::getInput)
 
@@ -88,7 +109,8 @@ class SolverTest : DescribeSpec({
                 }
 
                 getInput(
-                    year, day, fileName, getResourceLoader(tempFile, "aoc/year$year/day$day/$fileName")
+                    year, day, fileName,
+                    getResourceLoader(tempFile, getExpectedFileName(year, day, fileName))
                 ) shouldBe fileData
             }
         }
