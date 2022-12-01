@@ -49,6 +49,19 @@ fun getInput(
  * @param day The day of the puzzle.
  * @param fileName The text file's name.
  * @param resourceLoader The resource loader to be used to retrieve the input text file.
+ * @return The contents of the text file as a [Sequence] of [String]s.
+ */
+fun getInputAsSequence(
+    year: Int, day: Int, fileName: String = "input.txt",
+    resourceLoader: ResourceLoader = ResourceLoader.Default
+) = getInputAsFile(year, day, fileName, resourceLoader).useLines { it }
+
+/**
+ * Retrieves the input text file's contents for a given [day] and [year].
+ * @param year The year of the puzzle.
+ * @param day The day of the puzzle.
+ * @param fileName The text file's name.
+ * @param resourceLoader The resource loader to be used to retrieve the input text file.
  * @return The contents of the text file as a [String].
  */
 fun getRawInput(

@@ -13,6 +13,9 @@ abstract class Puzzle<PartOneOutput, PartTwoOutput>(
     /** The input for the specific puzzle as a [List] of strings. */
     val input by lazy { getInput(year, day) }
 
+    /** The input for the specific puzzle as a [Sequence] of strings. */
+    val inputSequence by lazy { getInputAsSequence(year, day) }
+
     /** The input for the specific puzzle as a [String]. */
     val rawInput by lazy { getRawInput(year, day) }
 
