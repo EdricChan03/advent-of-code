@@ -10,8 +10,11 @@ package com.edricchan.aoc
 abstract class Puzzle<PartOneOutput, PartTwoOutput>(
     val year: Int = Int.MIN_VALUE, val day: Int = Int.MIN_VALUE
 ) {
-    /** The input for the specific puzzle. */
-    val input = getInput(year, day)
+    /** The input for the specific puzzle as a [List] of strings. */
+    val input by lazy { getInput(year, day) }
+
+    /** The input for the specific puzzle as a [String]. */
+    val rawInput by lazy { getRawInput(year, day) }
 
     /** Retrieves the solution for part 1 of type [PartOneOutput]. */
     abstract fun solvePartOne(): PartOneOutput
