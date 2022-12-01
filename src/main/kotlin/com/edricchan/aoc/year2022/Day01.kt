@@ -8,7 +8,8 @@ fun main() = solve { Day01() }
 class Day01 : Puzzle<Int, Int>(year = 2022, day = 1) {
     private val cals = rawInput
         .trimEnd()
-        .splitToSequence("\n\n").map { e -> e.split("\n").map { it.toInt() } }
+        .splitToSequence("\n\n")
+        .map { e -> e.split("\n").map { it.toInt() } }
 
     override fun solvePartOne(): Int {
         return cals.maxOf { items -> items.sum() }
