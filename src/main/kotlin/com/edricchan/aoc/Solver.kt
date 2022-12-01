@@ -22,15 +22,39 @@ fun interface ResourceLoader {
  * @param day The day of the puzzle.
  * @param fileName The text file's name.
  * @param resourceLoader The resource loader to be used to retrieve the input text file.
+ * @return The input text file as a [File] reference.
+ */
+fun getInputAsFile(
+    year: Int, day: Int, fileName: String = "input.txt",
+    resourceLoader: ResourceLoader = ResourceLoader.Default
+) = resourceLoader.getResource("aoc/year$year/day$day/$fileName")
+    ?: throw FileNotFoundException("Input file for year $year, day $day does not exist")
+
+/**
+ * Retrieves the input text file's contents for a given [day] and [year].
+ * @param year The year of the puzzle.
+ * @param day The day of the puzzle.
+ * @param fileName The text file's name.
+ * @param resourceLoader The resource loader to be used to retrieve the input text file.
  * @return The contents of the text file as a list split by new lines.
  */
 fun getInput(
     year: Int, day: Int, fileName: String = "input.txt",
     resourceLoader: ResourceLoader = ResourceLoader.Default
-) =
-    (resourceLoader.getResource("aoc/year$year/day$day/$fileName")
-        ?: throw FileNotFoundException("Input file for year $year, day $day does not exist"))
-        .readLines()
+) = getInputAsFile(year, day, fileName, resourceLoader).readLines()
+
+/**
+ * Retrieves the input text file's contents for a given [day] and [year].
+ * @param year The year of the puzzle.
+ * @param day The day of the puzzle.
+ * @param fileName The text file's name.
+ * @param resourceLoader The resource loader to be used to retrieve the input text file.
+ * @return The contents of the text file as a [String].
+ */
+fun getRawInput(
+    year: Int, day: Int, fileName: String = "input.txt",
+    resourceLoader: ResourceLoader = ResourceLoader.Default
+) = getInputAsFile(year, day, fileName, resourceLoader).readText()
 
 /**
  * Solves the specified puzzle.
