@@ -13,8 +13,14 @@ abstract class Puzzle<PartOneOutput, PartTwoOutput>(
     /** The input for the specific puzzle as a [List] of strings. */
     val input by lazy { getInput(year, day) }
 
-    /** The input for the specific puzzle as a [Sequence] of strings. */
-    val inputSequence by lazy { getInputAsSequence(year, day) }
+    /**
+     * Allows for the input to be retrieved as a [Sequence] via [block],
+     * closing the file once done processing.
+     * @param block The callback to execute, where the contents of the file are
+     * passed as a [Sequence].
+     * @return The result as returned by executing [block].
+     */
+    fun <T> useInput(block: (Sequence<String>) -> T) = useInput(year, day, block = block)
 
     /** The input for the specific puzzle as a [String]. */
     val rawInput by lazy { getRawInput(year, day) }
