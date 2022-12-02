@@ -71,9 +71,9 @@ class SolverTest : DescribeSpec({
 
     fun getExpectedFileName(year: Int, day: Int, fileName: String) = "aoc/year$year/day$day/$fileName"
 
-    describe("getInputAsFile") {
+    describe("getInputFile") {
         it("should retrieve the file") {
-            mockkStatic(::getInputAsFile)
+            mockkStatic(::getInputFile)
             val file = tempfile()
 
             checkAll(
@@ -82,7 +82,7 @@ class SolverTest : DescribeSpec({
                 // File name
                 Arb.stringPattern("\\w+\\.([A-z]\\d)+"),
             ) { year, day, fileName ->
-                getInputAsFile(
+                getInputFile(
                     year,
                     day,
                     fileName,

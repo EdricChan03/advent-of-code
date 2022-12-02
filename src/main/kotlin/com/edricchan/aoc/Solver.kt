@@ -24,7 +24,7 @@ fun interface ResourceLoader {
  * @param resourceLoader The resource loader to be used to retrieve the input text file.
  * @return The input text file as a [File] reference.
  */
-fun getInputAsFile(
+fun getInputFile(
     year: Int, day: Int, fileName: String = "input.txt",
     resourceLoader: ResourceLoader = ResourceLoader.Default
 ) = resourceLoader.getResource("aoc/year$year/day$day/$fileName")
@@ -41,7 +41,7 @@ fun getInputAsFile(
 fun getInput(
     year: Int, day: Int, fileName: String = "input.txt",
     resourceLoader: ResourceLoader = ResourceLoader.Default
-) = getInputAsFile(year, day, fileName, resourceLoader).readLines()
+) = getInputFile(year, day, fileName, resourceLoader).readLines()
 
 /**
  * Retrieves the input text file's contents for a given [day] and [year].
@@ -54,7 +54,7 @@ fun getInput(
 fun getInputAsSequence(
     year: Int, day: Int, fileName: String = "input.txt",
     resourceLoader: ResourceLoader = ResourceLoader.Default
-) = getInputAsFile(year, day, fileName, resourceLoader).useLines { it }
+) = getInputFile(year, day, fileName, resourceLoader).useLines { it }
 
 /**
  * Retrieves the input text file's contents for a given [day] and [year].
@@ -67,7 +67,7 @@ fun getInputAsSequence(
 fun getRawInput(
     year: Int, day: Int, fileName: String = "input.txt",
     resourceLoader: ResourceLoader = ResourceLoader.Default
-) = getInputAsFile(year, day, fileName, resourceLoader).readText()
+) = getInputFile(year, day, fileName, resourceLoader).readText()
 
 /**
  * Solves the specified puzzle.
