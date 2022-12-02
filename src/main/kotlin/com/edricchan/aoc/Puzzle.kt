@@ -10,6 +10,9 @@ package com.edricchan.aoc
 abstract class Puzzle<PartOneOutput, PartTwoOutput>(
     val year: Int = Int.MIN_VALUE, val day: Int = Int.MIN_VALUE
 ) {
+    /** The input [File] for the specific puzzle. */
+    val inputFile by lazy { getInputFile(year, day) }
+
     /** The input for the specific puzzle as a [List] of strings. */
     val input by lazy { getInput(year, day) }
 
