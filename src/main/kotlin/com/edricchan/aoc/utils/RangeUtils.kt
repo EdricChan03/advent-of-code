@@ -2,12 +2,14 @@ package com.edricchan.aoc.utils
 
 /** Checks if the receiver [IntRange] fully overlaps (or "contains") with [other]. */
 infix fun IntRange.contains(other: IntRange) =
-    other.all { it in this } || all { it in other }
+    // Receiver range contains other range
+    (first <= other.first && other.last <= last) ||
+    // Other range contains receiver range
+    (other.first <= first && last <= other.last)
 
 /** Checks if the receiver [IntRange] overlaps with [other]. */
 infix fun IntRange.overlaps(other: IntRange) =
-    other.any { it in this } || any { it in other }
-
+    first <= other.last && other.first <= last
 /**
  * Checks if there are any full overlaps in the given [Pair] of [IntRange]s.
  */
