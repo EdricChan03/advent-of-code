@@ -78,6 +78,34 @@ class PuzzleTestDSL(
         )
     }
 
+    fun <Input, PartOneOutput, PartTwoOutput> puzzle(
+        day: Int,
+        puzzle: (Input?) -> Puzzle<PartOneOutput, PartTwoOutput>,
+        inputs: List<Input>,
+        part1Ans: List<PartOneOutput>,
+        part2Ans: List<PartTwoOutput>
+    ) {
+        require(inputs.size == part1Ans.size) { "Part 1 answers must have the same size as the inputs" }
+        require(inputs.size == part2Ans.size) { "Part 2 answers must have the same size as the inputs" }
+
+        puzzlesList += PuzzleTestData(
+            PuzzleMeta(year, day),
+            puzzle,
+            part1Ans.mapIndexed { index, output -> PuzzleTestData.Answer(inputs[index], output) },
+            part2Ans.mapIndexed { index, output -> PuzzleTestData.Answer(inputs[index], output) },
+        )
+    }
+
+    fun <Input, PartOneOutput, PartTwoOutput> puzzle(
+        day: Int,
+        puzzle: (Input?) -> Puzzle<PartOneOutput, PartTwoOutput>,
+        inputs: List<Input>,
+        answers: Pair<List<PartOneOutput>, List<PartTwoOutput>>
+    ) {
+        val (part1Ans, part2Ans) = answers
+        puzzle(day, puzzle, inputs, part1Ans, part2Ans)
+    }
+
     @JvmName("puzzleNonPairAnswers")
     fun <Input, PartOneOutput, PartTwoOutput> puzzle(
         day: Int,
