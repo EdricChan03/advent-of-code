@@ -1,6 +1,6 @@
 package com.edricchan.aoc.year2021
 
-import com.edricchan.aoc.puzzle.puzzles
+import com.edricchan.aoc.puzzle.dsl.puzzles
 
 val puzzles = puzzles(2021) {
     puzzle(1, Day01(), 7, 5)

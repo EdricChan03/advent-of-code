@@ -1,7 +1,8 @@
-package com.edricchan.aoc.puzzle
+package com.edricchan.aoc.puzzle.dsl
 
 import com.edricchan.aoc.Puzzle
 import com.edricchan.aoc.PuzzleMeta
+import com.edricchan.aoc.puzzle.PuzzleTestData
 
 class PuzzleTestDSL(
     private val year: Int,
