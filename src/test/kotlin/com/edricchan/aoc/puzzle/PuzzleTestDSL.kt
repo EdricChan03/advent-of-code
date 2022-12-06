@@ -1,4 +1,7 @@
-package com.edricchan.aoc
+package com.edricchan.aoc.puzzle
+
+import com.edricchan.aoc.Puzzle
+import com.edricchan.aoc.PuzzleMeta
 
 class PuzzleTestDSL(
     private val year: Int,

@@ -1,4 +1,4 @@
-package com.edricchan.aoc
+package com.edricchan.aoc.puzzle
 
 import io.kotest.core.spec.style.describeSpec
 import io.kotest.datatest.withData
