@@ -26,6 +26,7 @@ class PuzzleTestDSL(
         )
     }
 
+    @JvmName("puzzleWithAnsPairs")
     fun <Input, PartOneOutput, PartTwoOutput> puzzle(
         day: Int,
         puzzle: (Input?) -> Puzzle<PartOneOutput, PartTwoOutput>,
@@ -68,12 +69,11 @@ class PuzzleTestDSL(
         puzzle(day, puzzle, inputs, part1Ans, part2Ans)
     }
 
-    @JvmName("puzzleNonPairAnswers")
     fun <Input, PartOneOutput, PartTwoOutput> puzzle(
         day: Int,
         puzzle: (Input?) -> Puzzle<PartOneOutput, PartTwoOutput>,
-        part2Ans: List<PuzzleTestData.Answer<Input, PartTwoOutput>>,
-        part1Ans: List<PuzzleTestData.Answer<Input, PartOneOutput>>
+        part1Ans: List<PuzzleTestData.Answer<Input, PartOneOutput>>,
+        part2Ans: List<PuzzleTestData.Answer<Input, PartTwoOutput>>
     ) {
         puzzlesList += PuzzleTestData(
             PuzzleMeta(year, day),
@@ -81,6 +81,15 @@ class PuzzleTestDSL(
             part1Ans,
             part2Ans
         )
+    }
+
+    fun <Input, PartOneOutput, PartTwoOutput> puzzle(
+        day: Int,
+        puzzle: (Input?) -> Puzzle<PartOneOutput, PartTwoOutput>,
+        answers: Pair<List<PuzzleTestData.Answer<Input, PartOneOutput>>, List<PuzzleTestData.Answer<Input, PartTwoOutput>>>,
+    ) {
+        val (part1Ans, part2Ans) = answers
+        puzzle(day, puzzle, part1Ans, part2Ans)
     }
 
     fun getPuzzles() = puzzlesList.toList()

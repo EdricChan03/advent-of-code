@@ -1,5 +1,6 @@
 package com.edricchan.aoc.year2022
 
+import com.edricchan.aoc.puzzle.dsl.puzzle
 import com.edricchan.aoc.puzzle.dsl.puzzles
 
 val puzzles = puzzles(2022) {
@@ -9,13 +10,21 @@ val puzzles = puzzles(2022) {
     puzzle(4, Day04(), 2, 4)
     puzzle(5, Day05(), "CMZ", "MCD")
 
-    val day6Inputs = listOf(
-        "mjqjpqmgbljsphdztnvjfqwrcgsmlb",
-        "bvwbjplbgvbhsrlpgdmjqwftvncz",
-        "nppdvjthqldpwncqszvftbrmjlhg",
-        "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg",
-        "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw"
-    )
-    val day6Outputs = listOf(7, 5, 6, 10, 11) to listOf(19, 23, 23, 29, 26)
-    puzzle(6, ::Day06, day6Inputs, day6Outputs)
+    // Demonstrates the answer DSLs
+    puzzle(6, ::Day06) {
+        "mjqjpqmgbljsphdztnvjfqwrcgsmlb" {
+            partOneAns = 7
+            partTwoAns = 19
+        }
+        withInput("bvwbjplbgvbhsrlpgdmjqwftvncz", 5, 23)
+        withInput("nppdvjthqldpwncqszvftbrmjlhg") {
+            partOneAns = 6
+            partTwoAns = 23
+        }
+        "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg" answers {
+            partOneAns = 10
+            partTwoAns = 29
+        }
+        "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw".answers(11, 26)
+    }
 }
