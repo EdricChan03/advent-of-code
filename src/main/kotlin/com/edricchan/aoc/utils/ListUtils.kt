@@ -14,3 +14,9 @@ val <E> List<List<E>>.transposed: List<List<E>>
             }
         }
     }
+
+/** Checks if the specified [List] contains only unique elements. */
+val <E> List<E>.isUnique get() = distinct().size == size
+
+/** Checks if the specified [List] contains only unique elements as returned by [selector]. */
+fun <E, K> List<E>.isUniqueBy(selector: (E) -> K) = distinctBy(selector).size == size
