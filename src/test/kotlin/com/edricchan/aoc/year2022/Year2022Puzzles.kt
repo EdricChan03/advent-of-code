@@ -27,4 +27,6 @@ val puzzles = puzzles(2022) {
         }
         "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw".answers(11, 26)
     }
+
+    puzzle(7, Day07(), 95437, 24933642)
 }
