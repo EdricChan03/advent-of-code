@@ -6,15 +6,18 @@ package com.edricchan.aoc
  * @property day The specific day
  * @property customInput The custom input, if any. If specified, this value
  * takes precedence over the [input] property.
+ * @property inputFileName The input's file name. By default, this value is set to
+ * `"input.txt"`.
  * @property PartOneOutput The output type to be used for part 1
  * @property PartTwoOutput The output type to be used for part 2
  */
 abstract class Puzzle<PartOneOutput, PartTwoOutput>(
     val year: Int = Int.MIN_VALUE, val day: Int = Int.MIN_VALUE,
-    private val customInput: String? = null
+    private val customInput: String? = null,
+    private val inputFileName: String = "input.txt"
 ) {
     /** The input [File] for the specific puzzle. */
-    val inputFile by lazy { getInputFile(year, day) }
+    val inputFile by lazy { getInputFile(year, day, inputFileName) }
 
     /** The input for the specific puzzle as a [List] of strings. */
     val input by lazy { customInput?.lines() ?: getInput(year, day) }
