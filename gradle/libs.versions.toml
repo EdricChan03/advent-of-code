@@ -1,13 +1,14 @@
 [versions]
-kotest = "5.5.4"
-kotlin = "1.8.0"
-mockk = "1.13.2"
+kotest = "5.8.0"
+kotlin = "1.9.21"
+mockk = "1.13.8"
 
 [libraries]
 kotest-bom = { module = "io.kotest:kotest-bom", version.ref = "kotest" }
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5" }
 kotest-property = { module = "io.kotest:kotest-property" }
 kotest-framework-datatest = { module = "io.kotest:kotest-framework-datatest" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 [bundles]

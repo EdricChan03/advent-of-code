@@ -9,7 +9,7 @@ version = "1.0-SNAPSHOT"
 
 dependencies {
     // Testing frameworks
-    testImplementation(kotlin("test"))
+    testImplementation(libs.kotlin.test)
     // Kotest
     testImplementation(platform(libs.kotest.bom))
     testImplementation(libs.bundles.kotest)
