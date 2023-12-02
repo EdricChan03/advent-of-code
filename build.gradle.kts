@@ -1,6 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.kotlin.jvm)
 }
@@ -25,10 +24,6 @@ java.toolchain {
 tasks {
     test {
         useJUnitPlatform()
-    }
-
-    wrapper {
-        gradleVersion = "7.5.1"
     }
 
     withType<KotlinCompile> {
