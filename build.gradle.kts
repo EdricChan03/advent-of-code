@@ -8,10 +8,6 @@ plugins {
 group = "com.edricchan"
 version = "1.0-SNAPSHOT"
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     // Testing frameworks
     testImplementation(kotlin("test"))
