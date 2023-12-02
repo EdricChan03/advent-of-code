@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     alias(libs.plugins.kotlin.jvm)
 }
@@ -17,17 +15,12 @@ dependencies {
     testImplementation(libs.mockk)
 }
 
-java.toolchain {
-    languageVersion.set(JavaLanguageVersion.of(17))
+kotlin {
+    jvmToolchain(17)
 }
 
 tasks {
     test {
         useJUnitPlatform()
     }
-
-    withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "17"
-    }
 }
-
