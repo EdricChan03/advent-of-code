@@ -2,12 +2,19 @@ package com.edricchan.aoc.puzzle.dsl
 
 import com.edricchan.aoc.Puzzle
 import com.edricchan.aoc.PuzzleMeta
+import com.edricchan.aoc.ResourceLoader
 import com.edricchan.aoc.puzzle.PuzzleTestData
 import java.time.Year
 
+/**
+ * DSL for puzzle tests.
+ * @property year The year for this set of puzzles.
+ * @property resourceLoader [ResourceLoader] to be used for loading files.
+ */
 class PuzzleTestDSL(
-    private val year: Year,
-    private val puzzlesList: MutableList<PuzzleTestData<*, *, *>> = mutableListOf()
+    val year: Year,
+    private val puzzlesList: MutableList<PuzzleTestData<*, *, *>> = mutableListOf(),
+    val resourceLoader: ResourceLoader = ResourceLoader.Default
 ) {
     fun <PartOneOutput, PartTwoOutput> puzzle(puzzle: PuzzleTestData<*, PartOneOutput, PartTwoOutput>) {
         puzzlesList += puzzle
