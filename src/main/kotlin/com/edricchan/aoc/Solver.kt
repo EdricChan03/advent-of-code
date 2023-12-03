@@ -2,11 +2,15 @@ package com.edricchan.aoc
 
 import java.io.File
 import java.io.FileNotFoundException
+import java.nio.file.Path
 
 /** A resource loader used to retrieve resources. */
 fun interface ResourceLoader {
     /** Retrieves the specified resource given the [file name][fileName]. */
     fun getResource(fileName: String): File?
+
+    /** Retrieves the specified resource given the [file name][fileName] as a [Path]. */
+    fun getResourceAsPath(fileName: String): Path? = getResource(fileName)?.toPath()
 
     /** The default resource loader. */
     object Default : ResourceLoader {
