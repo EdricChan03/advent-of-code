@@ -3,6 +3,9 @@ package com.edricchan.aoc
 import java.io.File
 import java.io.FileNotFoundException
 import java.nio.file.Path
+import kotlin.io.path.readLines
+import kotlin.io.path.readText
+import kotlin.io.path.useLines
 
 /** A resource loader used to retrieve resources. */
 fun interface ResourceLoader {
@@ -21,17 +24,51 @@ fun interface ResourceLoader {
 }
 
 /**
- * Retrieves the input text file for a given [day] and [year].
+ * Retrieves the file path for the given [day] and [year], optionally allowing
+ * for the [fileName] to be specified.
+ *
+ * This is equivalent to the string `"aoc/year$year/day$day/$fileName"`.
+ *
+ * To get the input as a [File], use [getInputFile]. To get the input as a [Path],
+ * use [getInputPath].
+ * @param year The puzzle's year.
+ * @param day The puzzle's year.
+ * @param fileName The text file's name.
+ */
+fun getInputFilePath(
+    year: Int, day: Int, fileName: String = "input.txt"
+) = "aoc/year$year/day$day/$fileName"
+
+/**
+ * Retrieves the input text file for a given [day] and [year] as a [File].
  * @param year The year of the puzzle.
  * @param day The day of the puzzle.
  * @param fileName The text file's name.
  * @param resourceLoader The resource loader to be used to retrieve the input text file.
  * @return The input text file as a [File] reference.
+ * @see getInputPath
+ * @see getInputFilePath
  */
 fun getInputFile(
     year: Int, day: Int, fileName: String = "input.txt",
     resourceLoader: ResourceLoader = ResourceLoader.Default
-) = resourceLoader.getResource("aoc/year$year/day$day/$fileName")
+) = resourceLoader.getResource(getInputFilePath(year, day, fileName))
+    ?: throw FileNotFoundException("Input file for year $year, day $day does not exist")
+
+/**
+ * Retrieves the input text file for a given [day] and [year] as a [Path].
+ * @param year The year of the puzzle.
+ * @param day The day of the puzzle.
+ * @param fileName The text file's name.
+ * @param resourceLoader The resource loader to be used to retrieve the input text file.
+ * @return The input text file as a [Path] reference.
+ * @see getInputFile
+ * @see getInputFilePath
+ */
+fun getInputPath(
+    year: Int, day: Int, fileName: String = "input.txt",
+    resourceLoader: ResourceLoader = ResourceLoader.Default
+) = resourceLoader.getResourceAsPath(getInputFilePath(year, day, fileName))
     ?: throw FileNotFoundException("Input file for year $year, day $day does not exist")
 
 /**
@@ -45,7 +82,7 @@ fun getInputFile(
 fun getInput(
     year: Int, day: Int, fileName: String = "input.txt",
     resourceLoader: ResourceLoader = ResourceLoader.Default
-) = getInputFile(year, day, fileName, resourceLoader).readLines()
+) = getInputPath(year, day, fileName, resourceLoader).readLines()
 
 /**
  * Retrieves the input text file's contents for a given [day] and [year] as a [Sequence].
@@ -60,7 +97,7 @@ fun <T> useInput(
     year: Int, day: Int, fileName: String = "input.txt",
     resourceLoader: ResourceLoader = ResourceLoader.Default,
     block: (Sequence<String>) -> T
-) = getInputFile(year, day, fileName, resourceLoader).useLines(block = block)
+) = getInputPath(year, day, fileName, resourceLoader).useLines(block = block)
 
 /**
  * Retrieves the input text file's contents for a given [day] and [year].
@@ -73,7 +110,7 @@ fun <T> useInput(
 fun getRawInput(
     year: Int, day: Int, fileName: String = "input.txt",
     resourceLoader: ResourceLoader = ResourceLoader.Default
-) = getInputFile(year, day, fileName, resourceLoader).readText()
+) = getInputPath(year, day, fileName, resourceLoader).readText()
 
 /**
  * Solves the specified puzzle.
