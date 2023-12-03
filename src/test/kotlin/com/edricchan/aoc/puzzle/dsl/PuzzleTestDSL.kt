@@ -3,9 +3,10 @@ package com.edricchan.aoc.puzzle.dsl
 import com.edricchan.aoc.Puzzle
 import com.edricchan.aoc.PuzzleMeta
 import com.edricchan.aoc.puzzle.PuzzleTestData
+import java.time.Year
 
 class PuzzleTestDSL(
-    private val year: Int,
+    private val year: Year,
     private val puzzlesList: MutableList<PuzzleTestData<*, *, *>> = mutableListOf()
 ) {
     fun <PartOneOutput, PartTwoOutput> puzzle(puzzle: PuzzleTestData<*, PartOneOutput, PartTwoOutput>) {
@@ -95,6 +96,24 @@ class PuzzleTestDSL(
     fun getPuzzles() = puzzlesList.toList()
 }
 
-fun puzzles(year: Int, block: PuzzleTestDSL.() -> Unit): List<PuzzleTestData<*, *, *>> {
+/**
+ * Creates a list of puzzles for the given [year] using DSL syntax.
+ *
+ * To retrieve the [ResourceLoader] for loading files, use [PuzzleTestDSL.resourceLoader].
+ * @see PuzzleTestDSL
+ */
+@Deprecated(
+    "Use the overload which takes a java.time.Year instead",
+    ReplaceWith("puzzles(Year.of(year), block)", "java.time.Year")
+)
+fun puzzles(year: Int, block: PuzzleTestDSL.() -> Unit) = puzzles(Year.of(year), block)
+
+/**
+ * Creates a list of puzzles for the given [year] using DSL syntax.
+ *
+ * To retrieve the [ResourceLoader] for loading files, use [PuzzleTestDSL.resourceLoader].
+ * @see PuzzleTestDSL
+ */
+fun puzzles(year: Year, block: PuzzleTestDSL.() -> Unit): List<PuzzleTestData<*, *, *>> {
     return PuzzleTestDSL(year).apply(block).getPuzzles()
 }

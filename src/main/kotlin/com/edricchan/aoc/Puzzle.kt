@@ -1,5 +1,7 @@
 package com.edricchan.aoc
 
+import java.time.Year
+
 /**
  * The puzzle question for a specific day.
  * @property year The specific year
@@ -43,6 +45,6 @@ abstract class Puzzle<PartOneOutput, PartTwoOutput>(
 
 /** Metadata for a [Puzzle]. This should be implemented by classes that extend from [Puzzle]. */
 data class PuzzleMeta(
-    val year: Int,
+    val year: Year,
     val day: Int
 )
