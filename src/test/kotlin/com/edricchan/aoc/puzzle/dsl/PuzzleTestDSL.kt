@@ -102,18 +102,6 @@ class PuzzleTestDSL(
  * To retrieve the [ResourceLoader] for loading files, use [PuzzleTestDSL.resourceLoader].
  * @see PuzzleTestDSL
  */
-@Deprecated(
-    "Use the overload which takes a java.time.Year instead",
-    ReplaceWith("puzzles(Year.of(year), block)", "java.time.Year")
-)
-fun puzzles(year: Int, block: PuzzleTestDSL.() -> Unit) = puzzles(Year.of(year), block)
-
-/**
- * Creates a list of puzzles for the given [year] using DSL syntax.
- *
- * To retrieve the [ResourceLoader] for loading files, use [PuzzleTestDSL.resourceLoader].
- * @see PuzzleTestDSL
- */
 fun puzzles(year: Year, block: PuzzleTestDSL.() -> Unit): List<PuzzleTestData<*, *, *>> {
     return PuzzleTestDSL(year).apply(block).getPuzzles()
 }

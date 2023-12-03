@@ -1,8 +1,9 @@
 package com.edricchan.aoc.year2021
 
 import com.edricchan.aoc.puzzle.dsl.puzzles
+import java.time.Year
 
-val puzzles = puzzles(2021) {
+val puzzles = puzzles(Year.of(2021)) {
     puzzle(1, Day01(), 7, 5)
     puzzle(2, Day02(), 150, 900)
     puzzle(3, Day03(), 198, 230)
