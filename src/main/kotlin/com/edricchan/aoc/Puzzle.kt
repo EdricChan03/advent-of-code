@@ -48,4 +48,6 @@ abstract class Puzzle<PartOneOutput, PartTwoOutput>(
 data class PuzzleMeta(
     val year: Year,
     val day: Int
-)
+) {
+    constructor(year: Int, day: Int) : this(Year.of(year), day)
+}
