@@ -1,5 +1,6 @@
 package com.edricchan.aoc
 
+import java.time.LocalDate
 import java.time.Year
 
 /**
@@ -14,7 +15,7 @@ import java.time.Year
  * @property PartTwoOutput The output type to be used for part 2
  */
 abstract class Puzzle<PartOneOutput, PartTwoOutput>(
-    val year: Int = Int.MIN_VALUE, val day: Int = Int.MIN_VALUE,
+    val year: Int = Year.now().value, val day: Int = LocalDate.now().dayOfMonth,
     private val customInput: String? = null,
     private val inputFileName: String = "input.txt"
 ) {
