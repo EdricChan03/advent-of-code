@@ -81,8 +81,7 @@ class PuzzleTestAnsScope<Input, PartOneOutput : Any, PartTwoOutput : Any>(
     }
 
     /** Retrieves the answers as a [Pair]. */
-    fun getAnswersAsPair() =
-        part1Answers.map { it.toTestAnswer() } to part2Answers.map { it.toTestAnswer() }
+    val answersAsPair get() = part1Answers.map { it.toTestAnswer() } to part2Answers.map { it.toTestAnswer() }
 }
 
 fun <Input, PartOneOutput : Any, PartTwoOutput : Any> PuzzleTestDSL.puzzle(
@@ -95,6 +94,6 @@ fun <Input, PartOneOutput : Any, PartTwoOutput : Any> PuzzleTestDSL.puzzle(
         puzzle,
         PuzzleTestAnsScope<Input, PartOneOutput, PartTwoOutput>(
             resourceLoader = resourceLoader
-        ).apply(outputScope).getAnswersAsPair()
+        ).apply(outputScope).answersAsPair
     )
 }
