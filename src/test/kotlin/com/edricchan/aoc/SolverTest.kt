@@ -141,7 +141,7 @@ class SolverTest : DescribeSpec({
             solve(benchmark, puzzleFn)
 
             verify { solve(benchmark, puzzleFn) }
-            verify { printResult(puzzleFn) }
+            verify { printBenchmarkedResult(puzzleFn) }
         }
     }
 })
