@@ -1,3 +1,4 @@
+// TODO: Move to test-fixtures
 package com.edricchan.aoc.puzzle.dsl
 
 import com.edricchan.aoc.Puzzle
@@ -6,11 +7,15 @@ import com.edricchan.aoc.ResourceLoader
 import com.edricchan.aoc.puzzle.PuzzleTestData
 import java.time.Year
 
+@DslMarker
+annotation class PuzzleTestDsl
+
 /**
  * DSL for puzzle tests.
  * @property year The year for this set of puzzles.
  * @property resourceLoader [ResourceLoader] to be used for loading files.
  */
+@PuzzleTestDsl
 class PuzzleTestDSL(
     val year: Year,
     private val puzzlesList: MutableList<PuzzleTestData<*, *, *>> = mutableListOf(),
@@ -109,6 +114,7 @@ class PuzzleTestDSL(
  * To retrieve the [ResourceLoader] for loading files, use [PuzzleTestDSL.resourceLoader].
  * @see PuzzleTestDSL
  */
+@PuzzleTestDsl
 fun puzzles(year: Year, block: PuzzleTestDSL.() -> Unit): List<PuzzleTestData<*, *, *>> {
     return PuzzleTestDSL(year).apply(block).getPuzzles()
 }
