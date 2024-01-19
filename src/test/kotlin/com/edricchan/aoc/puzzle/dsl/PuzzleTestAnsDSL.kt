@@ -13,11 +13,16 @@ annotation class PuzzleTestAnsDSL
 
 @PuzzleTestAnsDSL
 class PuzzleTestAnsScope<Input, PartOneOutput : Any, PartTwoOutput : Any>(
+    private val meta: PuzzleMeta,
     private var part1Answers: MutableList<Answer<Input, PartOneOutput>> = mutableListOf(),
     private var part2Answers: MutableList<Answer<Input, PartTwoOutput>> = mutableListOf(),
     private var inputs: MutableList<Input> = mutableListOf(),
     val resourceLoader: ResourceLoader
 ) {
+    val defaultInputFile by lazy { meta.getInputFile(resourceLoader = resourceLoader) }
+    val defaultInputPath by lazy { meta.getInputPath(resourceLoader = resourceLoader) }
+    val defaultInputFilePath by lazy { meta.getInputFilePath() }
+
     @PuzzleTestAnsDSL
     class InputScope<Input, PartOneOutput : Any, PartTwoOutput : Any>(
         private val input: Input
@@ -93,6 +98,7 @@ fun <Input, PartOneOutput : Any, PartTwoOutput : Any> PuzzleTestDSL.puzzle(
         day,
         puzzle,
         PuzzleTestAnsScope<Input, PartOneOutput, PartTwoOutput>(
+            meta = PuzzleMeta(year, day),
             resourceLoader = resourceLoader
         ).apply(outputScope).answersAsPair
     )
