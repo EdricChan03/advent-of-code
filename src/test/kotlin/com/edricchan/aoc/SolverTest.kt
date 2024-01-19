@@ -2,6 +2,7 @@ package com.edricchan.aoc
 
 import com.edricchan.aoc.arb.puzzleMeta
 import com.edricchan.aoc.arb.year
+import com.edricchan.aoc.puzzle.input.PuzzleInput
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.engine.spec.tempfile
 import io.kotest.matchers.shouldBe
@@ -15,6 +16,7 @@ import io.mockk.verify
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.PrintStream
+import java.nio.file.Path
 
 class SolverTest : DescribeSpec({
     // Override the default System.out/System.err
@@ -37,20 +39,28 @@ class SolverTest : DescribeSpec({
     }
 
     data class PuzzleData<O1, O2>(
-        val puzzle: Puzzle<O1, O2>, val part1Ans: Int, val part2Ans: Int, val year: Int, val day: Int
+        val puzzle: Puzzle<O1, O2>,
+        val part1Ans: Int,
+        val part2Ans: Int,
+        val year: Int,
+        val day: Int,
+        val input: PuzzleInput
     )
 
-    fun getRandomPuzzle(): PuzzleData<Int, Int> {
+    fun getRandomPuzzle(
+        file: Path = tempfile().toPath()
+    ): PuzzleData<Int, Int> {
         // Test data
-        val (part1Ans, part2Ans) = Arb.int().samples().take(2).map { it.value }.toList()
+        val (part1Ans, part2Ans) = Arb.int().take(2).toList()
 
-        val (year, day) = Arb.positiveInt().samples().take(2).map { it.value }.toList()
+        val year = Arb.year().single()
+        val day = Arb.positiveInt().single()
 
-        mockkStatic(::getInput)
+        val input = PuzzleInput.File(file)
 
-        every { getInput(year, day) } returns listOf()
-
-        class TestPuzzle : Puzzle<Int, Int>(year = year, day = day) {
+        class TestPuzzle : Puzzle<Int, Int>(
+            year = year.value, day = day, inputData = input
+        ) {
             override fun solvePartOne(): Int {
                 return part1Ans
             }
@@ -63,7 +73,7 @@ class SolverTest : DescribeSpec({
         val puzzleMock = spyk(TestPuzzle())
         every { puzzleMock.input } returns listOf()
 
-        return PuzzleData(puzzleMock, part1Ans, part2Ans, year, day)
+        return PuzzleData(puzzleMock, part1Ans, part2Ans, year.value, day, input = input)
     }
 
     fun getResourceLoader(file: File, expectedName: String) = ResourceLoader {
@@ -158,7 +168,7 @@ class SolverTest : DescribeSpec({
             printResult { puzzleData.puzzle }
 
             testOutContentStream.toString().trim().replace("\r\n", "\n") shouldBe """
-            ${puzzleData.day} December ${puzzleData.year}:
+            ${puzzleData.day} December ${puzzleData.year} (input - ${puzzleData.input.displayName}):
             Part 1 result: ${puzzleData.puzzle.solvePartOne()}
             Part 2 result: ${puzzleData.puzzle.solvePartTwo()}
             """.trimIndent()

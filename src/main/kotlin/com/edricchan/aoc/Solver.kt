@@ -241,14 +241,14 @@ fun solve(benchmark: Boolean = true, block: () -> Puzzle<*, *>) {
 
 fun printResult(block: () -> Puzzle<*, *>) {
     val puzzle = block()
-    println("${puzzle.day} December ${puzzle.year}:")
+    println("${puzzle.day} December ${puzzle.year} (input - ${puzzle.inputData.displayName}):")
     println("Part 1 result: ${puzzle.solvePartOne()}")
     println("Part 2 result: ${puzzle.solvePartTwo()}")
 }
 
 fun printBenchmarkedResult(block: () -> Puzzle<*, *>) {
     val puzzle = block()
-    println("${puzzle.day} December ${puzzle.year}:")
+    println("${puzzle.day} December ${puzzle.year} (input - ${puzzle.inputData.displayName}):")
 
     val (partOne, partOneDuration) = measureTimedValue(puzzle::solvePartOne)
     println("Part 1 result: $partOne (took $partOneDuration)")
