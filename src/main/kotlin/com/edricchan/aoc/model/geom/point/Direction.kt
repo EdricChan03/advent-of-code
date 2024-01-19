@@ -7,4 +7,14 @@ enum class Direction(val point: Point) {
     Right(Point(1, 0));
 
     operator fun times(by: Int) = point * by
+
+    /** Gets the reflected version of this direction. */
+    val reflectedDirection: Direction by lazy {
+        when (this) {
+            Up -> Down
+            Down -> Up
+            Left -> Right
+            Right -> Left
+        }
+    }
 }
