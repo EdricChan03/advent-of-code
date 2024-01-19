@@ -1,5 +1,7 @@
 package com.edricchan.aoc
 
+import com.edricchan.aoc.arb.puzzleMeta
+import com.edricchan.aoc.arb.year
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.engine.spec.tempfile
 import io.kotest.matchers.shouldBe
@@ -70,6 +72,8 @@ class SolverTest : DescribeSpec({
     }
 
     fun getExpectedFileName(year: Int, day: Int, fileName: String) = "aoc/year$year/day$day/$fileName"
+    fun PuzzleMeta.getExpectedFileName(fileName: String) =
+        getExpectedFileName(year = year.value, day = day, fileName = fileName)
 
     describe("getInputFile") {
         it("should retrieve the file") {
@@ -82,12 +86,24 @@ class SolverTest : DescribeSpec({
                 // File name
                 Arb.stringPattern("\\w+\\.([A-z]\\d)+"),
             ) { year, day, fileName ->
-                getInputFile(
-                    year,
-                    day,
-                    fileName,
-                    getResourceLoader(file, getExpectedFileName(year, day, fileName))
-                ) shouldBe file
+                val loader = getResourceLoader(file, getExpectedFileName(year, day, fileName))
+                getInputFile(year, day, fileName, loader) shouldBe file
+            }
+        }
+    }
+    describe("PuzzleMeta.getInputFile") {
+        it("should retrieve the file") {
+            mockkStatic(PuzzleMeta::getInputFile)
+            val file = tempfile()
+
+            checkAll(
+                // Metadata
+                Arb.puzzleMeta(),
+                // File name
+                Arb.stringPattern("\\w+\\.([A-z]\\d)+"),
+            ) { meta, fileName ->
+                val loader = getResourceLoader(file, meta.getExpectedFileName(fileName))
+                meta.getInputFile(fileName, loader) shouldBe file
             }
         }
     }
@@ -108,10 +124,29 @@ class SolverTest : DescribeSpec({
                     writeText(fileData.joinToString("\n"))
                 }
 
-                getInput(
-                    year, day, fileName,
-                    getResourceLoader(tempFile, getExpectedFileName(year, day, fileName))
-                ) shouldBe fileData
+                val loader = getResourceLoader(tempFile, getExpectedFileName(year, day, fileName))
+                getInput(year, day, fileName, loader) shouldBe fileData
+            }
+        }
+    }
+    describe("PuzzleMeta.getInput") {
+        it("should retrieve the file data") {
+            mockkStatic(PuzzleMeta::getInput)
+
+            checkAll(
+                // Metadata
+                Arb.puzzleMeta(),
+                // File name
+                Arb.stringPattern("\\w+\\.([A-z]\\d)+"),
+                // File data
+                Arb.list(Arb.string(minSize = 1))
+            ) { meta, fileName, fileData ->
+                val tempFile = tempfile().apply {
+                    writeText(fileData.joinToString("\n"))
+                }
+
+                val loader = getResourceLoader(tempFile, meta.getExpectedFileName(fileName))
+                meta.getInput(fileName, loader) shouldBe fileData
             }
         }
     }
