@@ -16,6 +16,28 @@ fun interface ResourceLoader {
     /** Retrieves the specified resource given the [file name][fileName] as a [Path]. */
     fun getResourceAsPath(fileName: String): Path? = getResource(fileName)?.toPath()
 
+    /**
+     * Retrieves the specified resource given the [file name][fileName].
+     *
+     * If `null` is returned, a runtime [IllegalArgumentException] is thrown.
+     * @see requireNotNull
+     * @see getResource
+     */
+    fun requireResource(fileName: String): File = requireNotNull(getResource(fileName)) {
+        "Resource with file name $fileName does not exist"
+    }
+
+    /**
+     * Retrieves the specified resource given the [file name][fileName] as a [Path].
+     *
+     * If `null` is returned, a runtime [IllegalArgumentException] is thrown.
+     * @see requireNotNull
+     * @see getResource
+     */
+    fun requireResourceAsPath(fileName: String): Path = requireNotNull(getResourceAsPath(fileName)) {
+        "Resource with file name $fileName does not exist"
+    }
+
     /** The default resource loader. */
     object Default : ResourceLoader {
         override fun getResource(fileName: String): File? {
