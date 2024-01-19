@@ -1,6 +1,6 @@
 package com.edricchan.aoc.puzzle.dsl
 
-import com.edricchan.aoc.Puzzle
+import com.edricchan.aoc.*
 import com.edricchan.aoc.puzzle.PuzzleTestData
 import kotlin.properties.Delegates
 
@@ -15,7 +15,8 @@ annotation class PuzzleTestAnsDSL
 class PuzzleTestAnsScope<Input, PartOneOutput : Any, PartTwoOutput : Any>(
     private var part1Answers: MutableList<Answer<Input, PartOneOutput>> = mutableListOf(),
     private var part2Answers: MutableList<Answer<Input, PartTwoOutput>> = mutableListOf(),
-    private var inputs: MutableList<Input> = mutableListOf()
+    private var inputs: MutableList<Input> = mutableListOf(),
+    val resourceLoader: ResourceLoader
 ) {
     @PuzzleTestAnsDSL
     class InputScope<Input, PartOneOutput : Any, PartTwoOutput : Any>(
@@ -89,5 +90,11 @@ fun <Input, PartOneOutput : Any, PartTwoOutput : Any> PuzzleTestDSL.puzzle(
     puzzle: (Input?) -> Puzzle<PartOneOutput, PartTwoOutput>,
     outputScope: PuzzleTestAnsScope<Input, PartOneOutput, PartTwoOutput>.() -> Unit
 ) {
-    puzzle(day, puzzle, PuzzleTestAnsScope<Input, PartOneOutput, PartTwoOutput>().apply(outputScope).getAnswersAsPair())
+    puzzle(
+        day,
+        puzzle,
+        PuzzleTestAnsScope<Input, PartOneOutput, PartTwoOutput>(
+            resourceLoader = resourceLoader
+        ).apply(outputScope).getAnswersAsPair()
+    )
 }
