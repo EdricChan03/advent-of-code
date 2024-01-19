@@ -1,12 +1,20 @@
 package com.edricchan.aoc.year2023
 
 import com.edricchan.aoc.Puzzle
+import com.edricchan.aoc.puzzle.input.PuzzleInput
+import com.edricchan.aoc.PuzzleMeta
 import com.edricchan.aoc.solve
 import com.edricchan.aoc.year2023.day01.allDigitsMap
 
 fun main() = solve(block = ::Day01)
 
-class Day01 : Puzzle<Int, Int>(year = 2023, day = 1) {
+class Day01(customInput: PuzzleInput? = null) : Puzzle<Int, Int>(
+    year = 2023, day = 1, inputData = customInput ?: PuzzleInput.Default(Meta)
+) {
+    companion object {
+        val Meta = PuzzleMeta(year = 2023, day = 1)
+    }
+
     override fun solvePartOne() = useInput { lines ->
         lines
             // Remove any empty lines (e.g. end-of-line)
