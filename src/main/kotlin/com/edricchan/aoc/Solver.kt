@@ -6,6 +6,7 @@ import java.nio.file.Path
 import kotlin.io.path.readLines
 import kotlin.io.path.readText
 import kotlin.io.path.useLines
+import kotlin.time.measureTimedValue
 
 /** A resource loader used to retrieve resources. */
 fun interface ResourceLoader {
@@ -116,10 +117,12 @@ fun getRawInput(
  * Solves the specified puzzle.
  * @param benchmark Whether to perform benchmarks on the solution.
  * @param block The higher order function to be used to retrieve the [Puzzle].
+ * @see printResult
+ * @see printBenchmarkedResult
  */
-// TODO: Add benchmarking support
 fun solve(benchmark: Boolean = true, block: () -> Puzzle<*, *>) {
-    printResult(block)
+    if (benchmark) printBenchmarkedResult(block)
+    else printResult(block = block)
 }
 
 fun printResult(block: () -> Puzzle<*, *>) {
@@ -127,4 +130,17 @@ fun printResult(block: () -> Puzzle<*, *>) {
     println("${puzzle.day} December ${puzzle.year}:")
     println("Part 1 result: ${puzzle.solvePartOne()}")
     println("Part 2 result: ${puzzle.solvePartTwo()}")
+}
+
+fun printBenchmarkedResult(block: () -> Puzzle<*, *>) {
+    val puzzle = block()
+    println("${puzzle.day} December ${puzzle.year}:")
+
+    val (partOne, partOneDuration) = measureTimedValue(puzzle::solvePartOne)
+    println("Part 1 result: $partOne (took $partOneDuration)")
+
+    val (partTwo, partTwoDuration) = measureTimedValue(puzzle::solvePartTwo)
+    println("Part 2 result: $partTwo (took $partTwoDuration)")
+
+    println("Total duration: ${partOneDuration + partTwoDuration}")
 }
