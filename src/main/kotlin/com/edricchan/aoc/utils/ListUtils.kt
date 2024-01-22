@@ -41,3 +41,19 @@ inline fun <T> Iterable<T>.takeUntil(predicate: (T) -> Boolean): List<T> {
     }
     return list
 }
+
+/**
+ * Calculates the products over the list of integers, and returns the result.
+ *
+ * This is the equivalent of the following expression:
+ * ```kotlin
+ * fold(1) { acc, element ->
+ *     acc * element
+ * }
+ * ```
+ *
+ * See [∏](https://en.wiktionary.org/wiki/%E2%88%8F) for more info.
+ */
+fun Iterable<Int>.product() = fold(1) { acc, element ->
+    acc * element
+}
