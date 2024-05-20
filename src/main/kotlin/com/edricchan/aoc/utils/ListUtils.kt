@@ -21,6 +21,9 @@ val <E> List<E>.isUnique get() = distinct().size == size
 /** Checks if the specified [List] contains only unique elements as returned by [selector]. */
 fun <E, K> List<E>.isUniqueBy(selector: (E) -> K) = distinctBy(selector).size == size
 
+/** Checks if the receiver [Iterable] has any common elements with the [other] iterable. */
+infix fun <T> Iterable<T>.hasCommonElementsWith(other: Iterable<T>): Boolean = other.any { it in toSet() }
+
 /** Returns the number of boolean elements that are the value `true`. */
 fun List<Boolean>.countTrue() = count { it }
 
