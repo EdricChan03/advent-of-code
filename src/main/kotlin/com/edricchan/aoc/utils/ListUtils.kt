@@ -57,3 +57,21 @@ inline fun <T> Iterable<T>.takeUntil(predicate: (T) -> Boolean): List<T> {
 fun Iterable<Int>.product() = fold(1) { acc, element ->
     acc * element
 }
+
+/**
+ * Calculates the products over the list of integers produced by the
+ * [selector] function applied to each element in the collection, and returns the result.
+ *
+ * This is the equivalent of the following expression:
+ * ```kotlin
+ * fold(1) { acc, element ->
+ *     acc * selector(element)
+ * }
+ * ```
+ *
+ * See [∏](https://en.wiktionary.org/wiki/%E2%88%8F) for more info.
+ * @param selector Lambda used to retrieve an [Int] from an element [T].
+ */
+inline fun <T> Iterable<T>.productOf(selector: (T) -> Int) = fold(1) { acc, element ->
+    acc * selector(element)
+}
