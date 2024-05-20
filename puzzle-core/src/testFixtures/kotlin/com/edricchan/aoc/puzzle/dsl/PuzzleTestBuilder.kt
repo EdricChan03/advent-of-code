@@ -6,6 +6,7 @@ import com.edricchan.aoc.puzzle.PuzzleMeta
 import com.edricchan.aoc.puzzle.ResourceLoader
 import com.edricchan.aoc.puzzle.PuzzleTestData
 import java.time.Year
+import kotlin.reflect.full.createInstance
 
 @DslMarker
 annotation class PuzzleTestDsl
@@ -106,6 +107,14 @@ class PuzzleTestBuilder(
     }
 
     fun getPuzzles() = puzzlesList.toList()
+}
+
+inline fun <reified P : Puzzle<PartOneOutput, PartTwoOutput>, PartOneOutput, PartTwoOutput> PuzzleTestBuilder.puzzle(
+    day: Int,
+    part1Ans: PartOneOutput,
+    part2Ans: PartTwoOutput
+) {
+    puzzle(day = day, puzzle = P::class.createInstance(), part1Ans, part2Ans)
 }
 
 /**

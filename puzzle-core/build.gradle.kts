@@ -12,6 +12,7 @@ dependencies {
     // Kotest
     testImplementation(platform(libs.kotest.bom))
     testImplementation(libs.bundles.kotest)
+    testFixturesImplementation(libs.kotlin.reflect)
     testFixturesApi(platform(libs.kotest.bom))
     testFixturesApi(libs.bundles.kotest)
     // Mockk

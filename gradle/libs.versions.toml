@@ -9,6 +9,7 @@ kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5" }
 kotest-property = { module = "io.kotest:kotest-property" }
 kotest-framework-datatest = { module = "io.kotest:kotest-framework-datatest" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 [bundles]
