@@ -22,7 +22,7 @@ sealed class Command {
             // Go to the root directory
             "/" -> emptyList()
             // Go up one directory
-            "" -> path.dropLast(1)
+            ".." -> path.dropLast(1)
             // Go to the specified directory
             else -> path + dir
         }
