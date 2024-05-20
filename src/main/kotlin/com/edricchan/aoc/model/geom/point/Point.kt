@@ -88,5 +88,14 @@ data class Point(
     val right by lazy { Point(x + 1, y) }
 }
 
+fun Point.adjacentPoints(): Set<Point> {
+    val directions = listOf(
+        Point(-1, -1), Point(0, -1), Point(1, -1),
+        Point(-1, 0), /* [origin], */ Point(1, 0),
+        Point(-1, 1), Point(0, 1), Point(1, 1)
+    )
+    return directions.map { Point(this.x + it.x, this.y + it.y) }.toSet()
+}
+
 /** Creates a [Point] from the given [Pair] of [Int] coordinates. */
 fun Pair<Int, Int>.toPoint() = Point(first, second)
