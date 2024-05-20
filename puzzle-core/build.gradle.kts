@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
+    `java-test-fixtures`
 }
 
 group = "com.edricchan"
@@ -11,6 +12,8 @@ dependencies {
     // Kotest
     testImplementation(platform(libs.kotest.bom))
     testImplementation(libs.bundles.kotest)
+    testFixturesApi(platform(libs.kotest.bom))
+    testFixturesApi(libs.bundles.kotest)
     // Mockk
     testImplementation(libs.mockk)
 }
@@ -22,12 +25,5 @@ kotlin {
 tasks {
     test {
         useJUnitPlatform()
-
-        // Exclude DSLs meant for tests
-        // TODO: Move to test-fixtures
-        filter {
-            excludeTestsMatching("*TestDSL")
-            excludeTestsMatching("*TestDsl")
-        }
     }
 }

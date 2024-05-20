@@ -9,6 +9,7 @@ dependencies {
     api(projects.puzzleCore)
     // Testing frameworks
     testImplementation(libs.kotlin.test)
+    testImplementation(testFixtures(projects.puzzleCore))
     // Kotest
     testImplementation(platform(libs.kotest.bom))
     testImplementation(libs.bundles.kotest)
@@ -23,12 +24,5 @@ kotlin {
 tasks {
     test {
         useJUnitPlatform()
-
-        // Exclude DSLs meant for tests
-        // TODO: Move to test-fixtures
-        filter {
-            excludeTestsMatching("*TestDSL")
-            excludeTestsMatching("*TestDsl")
-        }
     }
 }
