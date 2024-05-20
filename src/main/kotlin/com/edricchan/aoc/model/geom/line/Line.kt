@@ -1,6 +1,8 @@
 package com.edricchan.aoc.model.geom.line
 
 import com.edricchan.aoc.model.geom.point.Point
+import kotlin.math.absoluteValue
+import kotlin.math.roundToInt
 
 data class Line(
     val start: Point,
@@ -9,9 +11,27 @@ data class Line(
     /** Converts this line to a [Pair]. */
     fun toPair() = start to end
 
-    /** Generates all possible points in this line as a [Sequence]. */
-    // TODO
-    fun pointsSequence(): Sequence<Point> = TODO()
+}
+
+/** Generates a [Sequence] of [Point]s from the receiver [Line]. */
+fun Line.pointsSequence(): Sequence<Point> {
+    // Handle the special case when the line is only 1 unit
+    if (start == end) return sequenceOf(start)
+
+    val dx = end.x - start.x
+    val dy = end.y - start.y
+    val steps = maxOf(dx.absoluteValue, dy.absoluteValue)
+    val xIncrement = dx.toFloat() / steps
+    val yIncrement = dy.toFloat() / steps
+
+    return generateSequence(0) { it + 1 }
+        .take(steps + 1)
+        .map { step ->
+            Point(
+                (start.x + step * xIncrement).roundToInt(),
+                (start.y + step * yIncrement).roundToInt()
+            )
+        }
 }
 
 /** Checks if the receiver point intersects with the [line]. */
