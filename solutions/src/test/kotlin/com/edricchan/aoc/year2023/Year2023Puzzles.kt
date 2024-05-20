@@ -15,4 +15,5 @@ val puzzles = puzzles(Year.of(2023)) {
     }
 
     puzzle(2, Day02(), 8, 2286)
+    puzzle<Day03, _, _>(3, 4361, 467835)
 }
