@@ -18,5 +18,6 @@ pluginManagement {
 }
 
 include(
-    ":puzzle-core"
+    ":puzzle-core",
+    ":solutions"
 )
