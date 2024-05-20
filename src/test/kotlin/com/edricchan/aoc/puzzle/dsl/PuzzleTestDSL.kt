@@ -1,9 +1,9 @@
 // TODO: Move to test-fixtures
 package com.edricchan.aoc.puzzle.dsl
 
-import com.edricchan.aoc.Puzzle
-import com.edricchan.aoc.PuzzleMeta
-import com.edricchan.aoc.ResourceLoader
+import com.edricchan.aoc.puzzle.Puzzle
+import com.edricchan.aoc.puzzle.PuzzleMeta
+import com.edricchan.aoc.puzzle.ResourceLoader
 import com.edricchan.aoc.puzzle.PuzzleTestData
 import java.time.Year
 

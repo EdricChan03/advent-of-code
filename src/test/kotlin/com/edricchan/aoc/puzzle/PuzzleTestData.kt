@@ -1,8 +1,5 @@
 package com.edricchan.aoc.puzzle
 
-import com.edricchan.aoc.Puzzle
-import com.edricchan.aoc.PuzzleMeta
-
 /**
  * Provides the test data for a specific [Puzzle].
  * @property puzzleMeta Metadata for the puzzle.

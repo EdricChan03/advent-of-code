@@ -1,6 +1,6 @@
 package com.edricchan.aoc.arb
 
-import com.edricchan.aoc.PuzzleMeta
+import com.edricchan.aoc.puzzle.PuzzleMeta
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.arbitrary
 import io.kotest.property.arbitrary.positiveInt

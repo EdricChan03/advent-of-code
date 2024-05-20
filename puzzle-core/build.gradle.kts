@@ -6,7 +6,6 @@ group = "com.edricchan"
 version = "1.0-SNAPSHOT"
 
 dependencies {
-    api(projects.puzzleCore)
     // Testing frameworks
     testImplementation(libs.kotlin.test)
     // Kotest

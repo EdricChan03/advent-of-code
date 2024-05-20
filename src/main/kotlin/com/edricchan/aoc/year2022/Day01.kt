@@ -1,7 +1,7 @@
 package com.edricchan.aoc.year2022
 
-import com.edricchan.aoc.Puzzle
-import com.edricchan.aoc.solve
+import com.edricchan.aoc.puzzle.Puzzle
+import com.edricchan.aoc.puzzle.solve
 
 fun main() = solve { Day01() }
 

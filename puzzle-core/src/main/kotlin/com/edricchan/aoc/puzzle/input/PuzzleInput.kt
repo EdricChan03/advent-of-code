@@ -1,9 +1,9 @@
 package com.edricchan.aoc.puzzle.input
 
-import com.edricchan.aoc.Puzzle
-import com.edricchan.aoc.PuzzleMeta
-import com.edricchan.aoc.ResourceLoader
-import com.edricchan.aoc.getInputPath
+import com.edricchan.aoc.puzzle.Puzzle
+import com.edricchan.aoc.puzzle.PuzzleMeta
+import com.edricchan.aoc.puzzle.ResourceLoader
+import com.edricchan.aoc.puzzle.getInputPath
 import com.edricchan.aoc.puzzle.input.PuzzleInput.RawList.Companion.lineSeparator
 import java.nio.file.Path
 import java.time.Year

@@ -2,6 +2,7 @@ package com.edricchan.aoc
 
 import com.edricchan.aoc.arb.puzzleMeta
 import com.edricchan.aoc.arb.year
+import com.edricchan.aoc.puzzle.*
 import com.edricchan.aoc.puzzle.input.PuzzleInput
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.engine.spec.tempfile

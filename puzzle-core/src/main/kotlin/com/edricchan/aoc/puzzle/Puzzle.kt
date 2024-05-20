@@ -1,4 +1,4 @@
-package com.edricchan.aoc
+package com.edricchan.aoc.puzzle
 
 import com.edricchan.aoc.puzzle.input.PuzzleInput
 import java.time.LocalDate

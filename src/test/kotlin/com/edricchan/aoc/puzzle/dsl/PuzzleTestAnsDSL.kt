@@ -1,7 +1,6 @@
 package com.edricchan.aoc.puzzle.dsl
 
-import com.edricchan.aoc.*
-import com.edricchan.aoc.puzzle.PuzzleTestData
+import com.edricchan.aoc.puzzle.*
 import kotlin.properties.Delegates
 
 data class Answer<Input, Output>(val input: Input, val output: Output) {

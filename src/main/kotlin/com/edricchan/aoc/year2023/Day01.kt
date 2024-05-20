@@ -1,9 +1,9 @@
 package com.edricchan.aoc.year2023
 
-import com.edricchan.aoc.Puzzle
+import com.edricchan.aoc.puzzle.Puzzle
 import com.edricchan.aoc.puzzle.input.PuzzleInput
-import com.edricchan.aoc.PuzzleMeta
-import com.edricchan.aoc.solve
+import com.edricchan.aoc.puzzle.PuzzleMeta
+import com.edricchan.aoc.puzzle.solve
 import com.edricchan.aoc.year2023.day01.allDigitsMap
 
 fun main() = solve(block = ::Day01)

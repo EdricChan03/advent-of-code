@@ -1,9 +1,8 @@
 package com.edricchan.aoc.year2022
 
-import com.edricchan.aoc.Puzzle
-import com.edricchan.aoc.solve
+import com.edricchan.aoc.puzzle.Puzzle
+import com.edricchan.aoc.puzzle.solve
 import com.edricchan.aoc.utils.countTrue
-import com.edricchan.aoc.year2022.day08.HeightMap
 import com.edricchan.aoc.year2022.day08.HeightPoint
 import com.edricchan.aoc.year2022.day08.toHeightMap
 

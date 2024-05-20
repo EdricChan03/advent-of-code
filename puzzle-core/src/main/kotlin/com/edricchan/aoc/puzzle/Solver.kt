@@ -1,4 +1,4 @@
-package com.edricchan.aoc
+package com.edricchan.aoc.puzzle
 
 import java.io.File
 import java.io.FileNotFoundException
