@@ -16,7 +16,7 @@ annotation class PuzzleTestDsl
  * @property resourceLoader [ResourceLoader] to be used for loading files.
  */
 @PuzzleTestDsl
-class PuzzleTestDSL(
+class PuzzleTestBuilder(
     val year: Year,
     private val puzzlesList: MutableList<PuzzleTestData<*, *, *>> = mutableListOf(),
     val resourceLoader: ResourceLoader = ResourceLoader.Default
@@ -111,10 +111,10 @@ class PuzzleTestDSL(
 /**
  * Creates a list of puzzles for the given [year] using DSL syntax.
  *
- * To retrieve the [ResourceLoader] for loading files, use [PuzzleTestDSL.resourceLoader].
- * @see PuzzleTestDSL
+ * To retrieve the [ResourceLoader] for loading files, use [PuzzleTestBuilder.resourceLoader].
+ * @see PuzzleTestBuilder
  */
 @PuzzleTestDsl
-fun puzzles(year: Year, block: PuzzleTestDSL.() -> Unit): List<PuzzleTestData<*, *, *>> {
-    return PuzzleTestDSL(year).apply(block).getPuzzles()
+fun puzzles(year: Year, block: PuzzleTestBuilder.() -> Unit): List<PuzzleTestData<*, *, *>> {
+    return PuzzleTestBuilder(year).apply(block).getPuzzles()
 }

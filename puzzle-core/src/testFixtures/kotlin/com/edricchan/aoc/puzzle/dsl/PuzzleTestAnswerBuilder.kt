@@ -8,9 +8,9 @@ data class Answer<Input, Output>(val input: Input, val output: Output) {
 }
 
 @DslMarker
-annotation class PuzzleTestAnsDSL
+annotation class PuzzleTestAnswerDsl
 
-@PuzzleTestAnsDSL
+@PuzzleTestAnswerDsl
 class PuzzleTestAnsScope<Input, PartOneOutput : Any, PartTwoOutput : Any>(
     private val meta: PuzzleMeta,
     private var part1Answers: MutableList<Answer<Input, PartOneOutput>> = mutableListOf(),
@@ -22,7 +22,7 @@ class PuzzleTestAnsScope<Input, PartOneOutput : Any, PartTwoOutput : Any>(
     val defaultInputPath by lazy { meta.getInputPath(resourceLoader = resourceLoader) }
     val defaultInputFilePath by lazy { meta.getInputFilePath() }
 
-    @PuzzleTestAnsDSL
+    @PuzzleTestAnswerDsl
     class InputScope<Input, PartOneOutput : Any, PartTwoOutput : Any>(
         private val input: Input
     ) {
@@ -88,7 +88,7 @@ class PuzzleTestAnsScope<Input, PartOneOutput : Any, PartTwoOutput : Any>(
     val answersAsPair get() = part1Answers.map { it.toTestAnswer() } to part2Answers.map { it.toTestAnswer() }
 }
 
-fun <Input, PartOneOutput : Any, PartTwoOutput : Any> PuzzleTestDSL.puzzle(
+fun <Input, PartOneOutput : Any, PartTwoOutput : Any> PuzzleTestBuilder.puzzle(
     day: Int,
     puzzle: (Input?) -> Puzzle<PartOneOutput, PartTwoOutput>,
     outputScope: PuzzleTestAnsScope<Input, PartOneOutput, PartTwoOutput>.() -> Unit
