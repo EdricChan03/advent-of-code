@@ -11,6 +11,8 @@ data class Line(
     /** Converts this line to a [Pair]. */
     fun toPair() = start to end
 
+    /** Checks if the specified [point] intersects this [Line]. */
+    operator fun contains(point: Point) = pointsSequence().contains(point)
 }
 
 /** Generates a [Sequence] of [Point]s from the receiver [Line]. */
