@@ -30,3 +30,6 @@ fun <T> String.splitEvenHalf(
 fun <T> String.splitEvenHalf(
     transform: (String, Int) -> T
 ) = chunked(length / 2).let { transform(it[0], 0) to transform(it[1], 1) }
+
+/** Splits the receiver [String] by whitespaces (`\s+`). */
+fun String.splitWhitespace() = split(Regex("""\s+"""))
