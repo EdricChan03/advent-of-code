@@ -1,7 +1,7 @@
 [versions]
-kotest = "5.9.0"
-kotlin = "1.9.24"
-mockk = "1.13.10"
+kotest = "5.9.1"
+kotlin = "2.1.0"
+mockk = "1.13.13"
 
 [libraries]
 kotest-bom = { module = "io.kotest:kotest-bom", version.ref = "kotest" }
@@ -17,6 +17,3 @@ kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", v
 
 [bundles]
 kotest = ["kotest-runner-junit5", "kotest-property", "kotest-framework-datatest"]
-
-[plugins]
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
