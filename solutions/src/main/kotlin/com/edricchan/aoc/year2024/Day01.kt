@@ -12,7 +12,7 @@ private fun List<String>.toPairedLists(): Pair<List<Int>, List<Int>> = flatMap {
     .map { it.toInt() }
     .withIndex()
     .partition { it.index % 2 == 0 }
-    .mapValues { it.map(kotlin.collections.IndexedValue<kotlin.Int>::value).sorted() }
+    .mapValues { it.map(IndexedValue<Int>::value).sorted() }
 
 class Day01 : Puzzle<Int, Int>(year = 2024, day = 1) {
     override fun solvePartOne(): Int {
