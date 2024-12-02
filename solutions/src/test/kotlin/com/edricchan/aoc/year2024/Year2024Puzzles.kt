@@ -7,4 +7,5 @@ import java.time.Year
 
 val puzzles = puzzles(Year.of(2024)) {
     puzzle(1, Day01(), 11, 31)
+    puzzle(2, Day02(), 2, 4)
 }
