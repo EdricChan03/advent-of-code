@@ -8,4 +8,9 @@ import java.time.Year
 val puzzles = puzzles(Year.of(2024)) {
     puzzle(1, Day01(), 11, 31)
     puzzle(2, Day02(), 2, 4)
+    puzzle(3, Day03(), 161, 161)
+
+    puzzle(3, ::Day03) {
+        withInput(getTestInputPath("input-part2.txt").input, 161, 48)
+    }
 }
