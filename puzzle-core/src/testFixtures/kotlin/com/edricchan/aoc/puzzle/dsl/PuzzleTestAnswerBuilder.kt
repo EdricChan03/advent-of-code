@@ -14,9 +14,9 @@ annotation class PuzzleTestAnswerDsl
 @PuzzleTestAnswerDsl
 class PuzzleTestAnsScope<Input, PartOneOutput : Any, PartTwoOutput : Any>(
     private val meta: PuzzleMeta,
-    private var part1Answers: MutableList<Answer<Input, PartOneOutput>> = mutableListOf(),
-    private var part2Answers: MutableList<Answer<Input, PartTwoOutput>> = mutableListOf(),
-    private var inputs: MutableList<Input> = mutableListOf(),
+    private val part1Answers: MutableList<Answer<Input, PartOneOutput>> = mutableListOf(),
+    private val part2Answers: MutableList<Answer<Input, PartTwoOutput>> = mutableListOf(),
+    private val inputs: MutableList<Input> = mutableListOf(),
     val resourceLoader: ResourceLoader
 ) {
     val defaultInputFile by lazy { meta.getInputFile(resourceLoader = resourceLoader) }
