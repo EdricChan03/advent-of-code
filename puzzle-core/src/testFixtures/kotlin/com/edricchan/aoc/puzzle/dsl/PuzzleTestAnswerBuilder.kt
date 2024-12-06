@@ -1,6 +1,7 @@
 package com.edricchan.aoc.puzzle.dsl
 
 import com.edricchan.aoc.puzzle.*
+import java.nio.file.Path
 import kotlin.properties.Delegates
 
 data class Answer<Input, Output>(val input: Input, val output: Output) {
@@ -21,6 +22,20 @@ class PuzzleTestAnsScope<Input, PartOneOutput : Any, PartTwoOutput : Any>(
     val defaultInputFile by lazy { meta.getInputFile(resourceLoader = resourceLoader) }
     val defaultInputPath by lazy { meta.getInputPath(resourceLoader = resourceLoader) }
     val defaultInputFilePath by lazy { meta.getInputFilePath() }
+
+    /**
+     * Retrieves a specified [Path] from the [getInputFilePath] directory, with the specified file
+     * name.
+     *
+     * This is equivalent to calling:
+     *
+     * ```kotlin
+     * meta.getInputPath(fileName = fileName, resourceLoader = resourceLoader)
+     * ```
+     */
+    fun getTestInputPath(
+        fileName: String
+    ): Path = meta.getInputPath(fileName = fileName, resourceLoader = resourceLoader)
 
     @PuzzleTestAnswerDsl
     class InputScope<Input, PartOneOutput : Any, PartTwoOutput : Any>(
