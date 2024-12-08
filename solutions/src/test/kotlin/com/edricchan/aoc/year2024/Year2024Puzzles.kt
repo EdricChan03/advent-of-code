@@ -13,4 +13,6 @@ val puzzles = puzzles(Year.of(2024)) {
     puzzle(3, ::Day03) {
         withInput(getTestInputPath("input-part2.txt").input, 161, 48)
     }
+
+    puzzle(4, Day04(), 18, 9)
 }
