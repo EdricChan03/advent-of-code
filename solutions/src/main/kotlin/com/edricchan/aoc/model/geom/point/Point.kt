@@ -44,12 +44,15 @@ data class Point(
     /** Moves this point in the specified [d] (pair of `dx/dy`) gradient. */
     fun move(d: Pair<Int, Int>) = plus(d)
 
-    /** Moves this point in the specified [direction] once. */
-    infix fun move(direction: Direction) = plus(direction.point)
+    /** Moves this point in the specified [direction] once, using [Direction.cartesianDiffPoint]. */
+    infix fun move(direction: Direction) = plus(direction.cartesianDiffPoint)
+
+    /** Moves this point in the specified [direction] once, using [Direction.indexDiffPoint]. */
+    infix fun moveIndex(direction: Direction) = plus(direction.indexDiffPoint)
 
     /** Moves this point in the specified [direction], [by] times. */
     fun moveBy(direction: Direction, by: Int) =
-        copy(x = x + direction.point.x * by, y = y + direction.point.y * by)
+        copy(x = x + direction.cartesianDiffPoint.x * by, y = y + direction.cartesianDiffPoint.y * by)
 
     /** Moves this point up once. */
     fun moveUp() = move(Direction.Up)
