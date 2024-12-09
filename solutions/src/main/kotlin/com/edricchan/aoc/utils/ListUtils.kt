@@ -78,3 +78,21 @@ fun Iterable<Int>.product() = fold(1) { acc, element ->
 inline fun <T> Iterable<T>.productOf(selector: (T) -> Int) = fold(1) { acc, element ->
     acc * selector(element)
 }
+
+/** Retrieves the middle element, or `null` if the list [is empty][isEmpty]. */
+fun <T> List<T>.middleOrNull(): T? {
+    if (isEmpty()) return null
+
+    if (size % 2 == 1) return this[size / 2]
+
+    return this[(size / 2) - 1]
+}
+
+/** Retrieves the middle element, or throws [NoSuchElementException] if the list [is empty][isEmpty]. */
+fun <T> List<T>.middle(): T {
+    if (isEmpty()) throw NoSuchElementException("List is empty")
+
+    if (size % 2 == 1) return this[size / 2]
+
+    return this[(size / 2) - 1]
+}
