@@ -33,3 +33,30 @@ fun <T> String.splitEvenHalf(
 
 /** Splits the receiver [String] by whitespaces (`\s+`). */
 fun String.splitWhitespace() = split(Regex("""\s+"""))
+
+/**
+ * Splits a string by the [delimiter], and [transform]s the results into a resulting [Pair]
+ * of values.
+ *
+ * For example:
+ * ```kotlin
+ * "123|456".splitPair("|") { it.toInt() } // (123, 456)
+ * ```
+ */
+fun <T> String.splitPair(
+    delimiter: String,
+    transform: (String) -> T
+): Pair<T, T> {
+    val (a, b) = split(delimiter)
+    return transform(a) to transform(b)
+}
+
+/**
+ * Splits a string by the [delimiter] into a resulting [Pair] of values.
+ *
+ * For example:
+ * ```kotlin
+ * "123|456".splitPair("|") // ("123", "456")
+ * ```
+ */
+fun String.splitPair(delimiter: String): Pair<String, String> = splitPair(delimiter) { it }
