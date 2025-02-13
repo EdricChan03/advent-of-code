@@ -52,6 +52,24 @@ fun <T> String.splitPair(
 }
 
 /**
+ * Splits a string by the [delimiter], and transforms the results into a resulting [Pair]
+ * of values.
+ *
+ * For example:
+ * ```kotlin
+ * "123|false".splitPair("|", transformLeft = { it.toInt() }, transformRight = { it.toBooleanStrict() }) // (123, true)
+ * ```
+ */
+fun <TLeft, TRight> String.splitPair(
+    delimiter: String,
+    transformLeft: (String) -> TLeft,
+    transformRight: (String) -> TRight
+): Pair<TLeft, TRight> {
+    val (a, b) = split(delimiter)
+    return transformLeft(a) to transformRight(b)
+}
+
+/**
  * Splits a string by the [delimiter] into a resulting [Pair] of values.
  *
  * For example:
