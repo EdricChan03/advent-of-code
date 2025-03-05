@@ -1,4 +1,4 @@
-package com.edricchan.aoc.model
+package com.edricchan.aoc.model.grid
 
 import com.edricchan.aoc.model.geom.point.Point
 
