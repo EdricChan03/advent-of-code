@@ -177,7 +177,7 @@ fun String.toPuzzleInput(): PuzzleInput.Raw = PuzzleInput.Raw(this)
 /** Converts the receiver [String] to its [PuzzleInput.Raw] form. */
 val String.input: PuzzleInput.Raw get() = PuzzleInput.Raw(this)
 
-/** Converts the receiver [List] to its [PuzzleInput.RaRawListw] form. */
+/** Converts the receiver [List] to its [PuzzleInput.RawList] form. */
 fun List<String>.toPuzzleInput(): PuzzleInput.RawList = PuzzleInput.RawList(this)
 
 /** Converts the receiver [List] to its [PuzzleInput.RawList] form. */
