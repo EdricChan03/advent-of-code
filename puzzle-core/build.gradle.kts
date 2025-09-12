@@ -3,6 +3,8 @@ plugins {
     `java-test-fixtures`
 }
 
+kotlin.explicitApi()
+
 dependencies {
     // Kotest
     testFixturesImplementation(libs.kotlin.reflect)

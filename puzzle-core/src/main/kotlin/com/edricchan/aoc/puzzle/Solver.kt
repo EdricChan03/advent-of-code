@@ -9,12 +9,12 @@ import kotlin.io.path.useLines
 import kotlin.time.measureTimedValue
 
 /** A resource loader used to retrieve resources. */
-fun interface ResourceLoader {
+public fun interface ResourceLoader {
     /** Retrieves the specified resource given the [file name][fileName]. */
-    fun getResource(fileName: String): File?
+    public fun getResource(fileName: String): File?
 
     /** Retrieves the specified resource given the [file name][fileName] as a [Path]. */
-    fun getResourceAsPath(fileName: String): Path? = getResource(fileName)?.toPath()
+    public fun getResourceAsPath(fileName: String): Path? = getResource(fileName)?.toPath()
 
     /**
      * Retrieves the specified resource given the [file name][fileName].
@@ -23,7 +23,7 @@ fun interface ResourceLoader {
      * @see requireNotNull
      * @see getResource
      */
-    fun requireResource(fileName: String): File = requireNotNull(getResource(fileName)) {
+    public fun requireResource(fileName: String): File = requireNotNull(getResource(fileName)) {
         "Resource with file name $fileName does not exist"
     }
 
@@ -34,12 +34,12 @@ fun interface ResourceLoader {
      * @see requireNotNull
      * @see getResource
      */
-    fun requireResourceAsPath(fileName: String): Path = requireNotNull(getResourceAsPath(fileName)) {
+    public fun requireResourceAsPath(fileName: String): Path = requireNotNull(getResourceAsPath(fileName)) {
         "Resource with file name $fileName does not exist"
     }
 
     /** The default resource loader. */
-    object Default : ResourceLoader {
+    public object Default : ResourceLoader {
         override fun getResource(fileName: String): File? {
             return this::class.java.classLoader.getResource(fileName)?.toURI()?.let { File(it) }
         }
@@ -58,9 +58,9 @@ fun interface ResourceLoader {
  * @param day The puzzle's year.
  * @param fileName The text file's name.
  */
-fun getInputFilePath(
+public fun getInputFilePath(
     year: Int, day: Int, fileName: String = "input.txt"
-) = "aoc/year$year/day$day/$fileName"
+): String = "aoc/year$year/day$day/$fileName"
 
 /**
  * Retrieves the file path for the given [meta], optionally allowing
@@ -73,9 +73,9 @@ fun getInputFilePath(
  * @receiver The puzzle's metadata, consisting of [PuzzleMeta.year] and [PuzzleMeta.day].
  * @param fileName The text file's name.
  */
-fun PuzzleMeta.getInputFilePath(
+public fun PuzzleMeta.getInputFilePath(
     fileName: String = "input.txt"
-) = getInputFilePath(year = year.value, day = day, fileName = fileName)
+): String = getInputFilePath(year = year.value, day = day, fileName = fileName)
 
 /**
  * Retrieves the input text file for a given [day] and [year] as a [File].
@@ -87,10 +87,10 @@ fun PuzzleMeta.getInputFilePath(
  * @see getInputPath
  * @see getInputFilePath
  */
-fun getInputFile(
+public fun getInputFile(
     year: Int, day: Int, fileName: String = "input.txt",
     resourceLoader: ResourceLoader = ResourceLoader.Default
-) = resourceLoader.getResource(getInputFilePath(year, day, fileName))
+): File = resourceLoader.getResource(getInputFilePath(year, day, fileName))
     ?: throw FileNotFoundException("Input file for year $year, day $day does not exist")
 
 /**
@@ -102,10 +102,10 @@ fun getInputFile(
  * @see getInputPath
  * @see getInputFilePath
  */
-fun PuzzleMeta.getInputFile(
+public fun PuzzleMeta.getInputFile(
     fileName: String = "input.txt",
     resourceLoader: ResourceLoader = ResourceLoader.Default
-) = getInputFile(
+): File = getInputFile(
     year = year.value, day = day, fileName = fileName, resourceLoader = resourceLoader
 )
 
@@ -119,10 +119,10 @@ fun PuzzleMeta.getInputFile(
  * @see getInputFile
  * @see getInputFilePath
  */
-fun getInputPath(
+public fun getInputPath(
     year: Int, day: Int, fileName: String = "input.txt",
     resourceLoader: ResourceLoader = ResourceLoader.Default
-) = resourceLoader.getResourceAsPath(getInputFilePath(year, day, fileName))
+): Path = resourceLoader.getResourceAsPath(getInputFilePath(year, day, fileName))
     ?: throw FileNotFoundException("Input file for year $year, day $day does not exist")
 
 /**
@@ -134,10 +134,10 @@ fun getInputPath(
  * @see getInputFile
  * @see getInputFilePath
  */
-fun PuzzleMeta.getInputPath(
+public fun PuzzleMeta.getInputPath(
     fileName: String = "input.txt",
     resourceLoader: ResourceLoader = ResourceLoader.Default
-) = getInputPath(
+): Path = getInputPath(
     year = year.value, day = day, fileName = fileName, resourceLoader = resourceLoader
 )
 
@@ -149,10 +149,10 @@ fun PuzzleMeta.getInputPath(
  * @param resourceLoader The resource loader to be used to retrieve the input text file.
  * @return The contents of the text file as a list split by new lines.
  */
-fun getInput(
+public fun getInput(
     year: Int, day: Int, fileName: String = "input.txt",
     resourceLoader: ResourceLoader = ResourceLoader.Default
-) = getInputPath(year, day, fileName, resourceLoader).readLines()
+): List<String> = getInputPath(year, day, fileName, resourceLoader).readLines()
 
 /**
  * Retrieves the input text file's contents for a given [meta].
@@ -161,10 +161,10 @@ fun getInput(
  * @param resourceLoader The resource loader to be used to retrieve the input text file.
  * @return The contents of the text file as a list split by new lines.
  */
-fun PuzzleMeta.getInput(
+public fun PuzzleMeta.getInput(
     fileName: String = "input.txt",
     resourceLoader: ResourceLoader = ResourceLoader.Default
-) = getInput(
+): List<String> = getInput(
     year = year.value, day = day, fileName = fileName, resourceLoader = resourceLoader
 )
 
@@ -177,11 +177,11 @@ fun PuzzleMeta.getInput(
  * @param block A callback where the contents of the file are passed as a [Sequence].
  * @return The result of the [block].
  */
-fun <T> useInput(
+public fun <T> useInput(
     year: Int, day: Int, fileName: String = "input.txt",
     resourceLoader: ResourceLoader = ResourceLoader.Default,
     block: (Sequence<String>) -> T
-) = getInputPath(year, day, fileName, resourceLoader).useLines(block = block)
+): T = getInputPath(year, day, fileName, resourceLoader).useLines(block = block)
 
 /**
  * Retrieves the input text file's contents for a given [meta] as a [Sequence].
@@ -191,11 +191,11 @@ fun <T> useInput(
  * @param block A callback where the contents of the file are passed as a [Sequence].
  * @return The result of the [block].
  */
-fun <T> PuzzleMeta.useInput(
+public fun <T> PuzzleMeta.useInput(
     fileName: String = "input.txt",
     resourceLoader: ResourceLoader = ResourceLoader.Default,
     block: (Sequence<String>) -> T
-) = useInput(
+): T = useInput(
     year = year.value, day = day, fileName = fileName, resourceLoader = resourceLoader,
     block = block
 )
@@ -208,10 +208,10 @@ fun <T> PuzzleMeta.useInput(
  * @param resourceLoader The resource loader to be used to retrieve the input text file.
  * @return The contents of the text file as a [String].
  */
-fun getRawInput(
+public fun getRawInput(
     year: Int, day: Int, fileName: String = "input.txt",
     resourceLoader: ResourceLoader = ResourceLoader.Default
-) = getInputPath(year, day, fileName, resourceLoader).readText()
+): String = getInputPath(year, day, fileName, resourceLoader).readText()
 
 /**
  * Retrieves the input text file's contents for a given [this@getRawInput].
@@ -220,10 +220,10 @@ fun getRawInput(
  * @param resourceLoader The resource loader to be used to retrieve the input text file.
  * @return The contents of the text file as a [String].
  */
-fun PuzzleMeta.getRawInput(
+public fun PuzzleMeta.getRawInput(
     fileName: String = "input.txt",
     resourceLoader: ResourceLoader = ResourceLoader.Default
-) = getRawInput(
+): String = getRawInput(
     year = year.value, day = day, fileName = fileName, resourceLoader = resourceLoader
 )
 
@@ -234,19 +234,19 @@ fun PuzzleMeta.getRawInput(
  * @see printResult
  * @see printBenchmarkedResult
  */
-fun solve(benchmark: Boolean = true, block: () -> Puzzle<*, *>) {
+public fun solve(benchmark: Boolean = true, block: () -> Puzzle<*, *>) {
     if (benchmark) printBenchmarkedResult(block)
     else printResult(block = block)
 }
 
-fun printResult(block: () -> Puzzle<*, *>) {
+public fun printResult(block: () -> Puzzle<*, *>) {
     val puzzle = block()
     println("${puzzle.day} December ${puzzle.year} (input - ${puzzle.inputData.displayName}):")
     println("Part 1 result: ${puzzle.solvePartOne()}")
     println("Part 2 result: ${puzzle.solvePartTwo()}")
 }
 
-fun printBenchmarkedResult(block: () -> Puzzle<*, *>) {
+public fun printBenchmarkedResult(block: () -> Puzzle<*, *>) {
     val puzzle = block()
     println("${puzzle.day} December ${puzzle.year} (input - ${puzzle.inputData.displayName}):")
 

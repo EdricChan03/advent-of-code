@@ -22,19 +22,19 @@ import kotlin.io.path.useLines
  * * [PuzzleInput.Default] - the default implementation if no explicit puzzle input is
  * specified (and for backwards compatibility)
  */
-sealed interface PuzzleInput {
+public sealed interface PuzzleInput {
     /**
      * Retrieves the list of lines from the given input.
      * @see CharSequence.lines
      * @see Path.readLines
      */
-    fun lines(): List<String>
+    public fun lines(): List<String>
 
     /**
      * Retrieves the raw text from the given input.
      * @see Path.readText
      */
-    fun raw(): String
+    public fun raw(): String
 
     /**
      * Calls the block callback giving it a sequence of all the lines in the input
@@ -42,22 +42,22 @@ sealed interface PuzzleInput {
      * @see CharSequence.lineSequence
      * @see Path.useLines
      */
-    fun <T> useLines(block: (Sequence<String>) -> T): T
+    public fun <T> useLines(block: (Sequence<String>) -> T): T
 
     /** The display name to use when printing this class. */
-    val displayName get() = toString()
+    public val displayName: String get() = toString()
 
     /**
      * An implementation of [PuzzleInput] that uses raw text.
      * @property text The raw text.
      */
     @JvmInline
-    value class Raw(val text: String) : PuzzleInput {
-        override fun lines() = text.lines()
+    public value class Raw(public val text: String) : PuzzleInput {
+        override fun lines(): List<String> = text.lines()
 
-        override fun raw() = text
+        override fun raw(): String = text
 
-        override fun <T> useLines(block: (Sequence<String>) -> T) = block(text.lineSequence())
+        override fun <T> useLines(block: (Sequence<String>) -> T): T = block(text.lineSequence())
     }
 
     /**
@@ -71,17 +71,17 @@ sealed interface PuzzleInput {
      * @property texts The raw text as a list of strings.
      */
     @JvmInline
-    value class RawList(val texts: List<String>) : PuzzleInput {
-        override fun lines() = texts
+    public value class RawList(public val texts: List<String>) : PuzzleInput {
+        override fun lines(): List<String> = texts
 
         /** Retrieves the raw text from its input, joined by `\n`. */
-        override fun raw() = texts.joinToString(lineSeparator)
+        override fun raw(): String = texts.joinToString(lineSeparator)
 
-        override fun <T> useLines(block: (Sequence<String>) -> T) = block(texts.asSequence())
+        override fun <T> useLines(block: (Sequence<String>) -> T): T = block(texts.asSequence())
 
-        companion object {
+        public companion object {
             /** The line-separator character to use for [raw]. */
-            const val lineSeparator: String = "\n"
+            public const val lineSeparator: String = "\n"
         }
     }
 
@@ -89,12 +89,12 @@ sealed interface PuzzleInput {
      * An implementation of [PuzzleInput] that uses a file [Path].
      * @property path [Path] to the specified input file.
      */
-    data class File(val path: Path) : PuzzleInput {
-        override fun lines() = path.readLines()
+    public data class File(val path: Path) : PuzzleInput {
+        override fun lines(): List<String> = path.readLines()
 
-        override fun raw() = path.readText()
+        override fun raw(): String = path.readText()
 
-        override fun <T> useLines(block: (Sequence<String>) -> T) = path.useLines(block = block)
+        override fun <T> useLines(block: (Sequence<String>) -> T): T = path.useLines(block = block)
 
         override val displayName: String
             get() = "File - $path"
@@ -107,16 +107,18 @@ sealed interface PuzzleInput {
      * @property resourceLoader [ResourceLoader] used to retrieve the [resourceName].
      * @see ResourceLoader.requireResourceAsPath
      */
-    data class ResourceFile(
+    public data class ResourceFile(
         val resourceName: String,
         val resourceLoader: ResourceLoader = ResourceLoader.Default
     ) : PuzzleInput {
-        val path by lazy { resourceLoader.requireResourceAsPath(resourceName) }
-        override fun lines() = path.readLines()
+        /** Gets the underlying resource file as a NIO [Path]. */
+        val path: Path by lazy { resourceLoader.requireResourceAsPath(resourceName) }
 
-        override fun raw() = path.readText()
+        override fun lines(): List<String> = path.readLines()
 
-        override fun <T> useLines(block: (Sequence<String>) -> T) = path.useLines(block = block)
+        override fun raw(): String = path.readText()
+
+        override fun <T> useLines(block: (Sequence<String>) -> T): T = path.useLines(block = block)
 
         override val displayName: String
             get() = "ResourceFile (resource name: $resourceName) - $path"
@@ -128,12 +130,12 @@ sealed interface PuzzleInput {
      * The input data is read using the [resourceLoader] provided.
      * @see getInputPath
      */
-    data class Default(
+    public data class Default(
         val meta: PuzzleMeta,
         val inputFileName: String = Puzzle.defaultInputFileName,
         val resourceLoader: ResourceLoader = ResourceLoader.Default
     ) : PuzzleInput {
-        constructor(
+        public constructor(
             year: Year,
             day: Int,
             inputFileName: String = Puzzle.defaultInputFileName,
@@ -144,7 +146,7 @@ sealed interface PuzzleInput {
             resourceLoader = resourceLoader
         )
 
-        constructor(
+        public constructor(
             year: Int,
             day: Int,
             inputFileName: String = Puzzle.defaultInputFileName,
@@ -157,13 +159,13 @@ sealed interface PuzzleInput {
         )
 
         /** Path to the input file. */
-        val path by lazy { meta.getInputPath(inputFileName) }
+        public val path: Path by lazy { meta.getInputPath(inputFileName) }
 
-        override fun lines() = path.readLines()
+        override fun lines(): List<String> = path.readLines()
 
-        override fun raw() = path.readText()
+        override fun raw(): String = path.readText()
 
-        override fun <T> useLines(block: (Sequence<String>) -> T) = path.useLines(block = block)
+        override fun <T> useLines(block: (Sequence<String>) -> T): T = path.useLines(block = block)
 
         override val displayName: String
             get() = "Default (metadata: $meta) - $path"
@@ -172,34 +174,34 @@ sealed interface PuzzleInput {
 
 //#region Extension functions/properties
 /** Converts the receiver [String] to its [PuzzleInput.Raw] form. */
-fun String.toPuzzleInput(): PuzzleInput.Raw = PuzzleInput.Raw(this)
+public fun String.toPuzzleInput(): PuzzleInput.Raw = PuzzleInput.Raw(this)
 
 /** Converts the receiver [String] to its [PuzzleInput.Raw] form. */
-val String.input: PuzzleInput.Raw get() = PuzzleInput.Raw(this)
+public val String.input: PuzzleInput.Raw get() = PuzzleInput.Raw(this)
 
 /** Converts the receiver [List] to its [PuzzleInput.RawList] form. */
-fun List<String>.toPuzzleInput(): PuzzleInput.RawList = PuzzleInput.RawList(this)
+public fun List<String>.toPuzzleInput(): PuzzleInput.RawList = PuzzleInput.RawList(this)
 
 /** Converts the receiver [List] to its [PuzzleInput.RawList] form. */
-val List<String>.input: PuzzleInput.RawList get() = PuzzleInput.RawList(this)
+public val List<String>.input: PuzzleInput.RawList get() = PuzzleInput.RawList(this)
 
 /** Converts the receiver [Path] to its [PuzzleInput.File] form. */
-fun Path.toPuzzleInput(): PuzzleInput.File = PuzzleInput.File(this)
+public fun Path.toPuzzleInput(): PuzzleInput.File = PuzzleInput.File(this)
 
 /** Converts the receiver [Path] to its [PuzzleInput.File] form. */
-val Path.input: PuzzleInput.File get() = PuzzleInput.File(this)
+public val Path.input: PuzzleInput.File get() = PuzzleInput.File(this)
 
 /**
  * Retrieves the [puzzle input][PuzzleInput.ResourceFile] given the specified arguments.
  * @receiver The resource loader to resolve the [resourceName].
  * @param resourceName The resource's name to resolve.
  */
-fun ResourceLoader.getPuzzleInput(
+public fun ResourceLoader.getPuzzleInput(
     resourceName: String
 ): PuzzleInput.ResourceFile = PuzzleInput.ResourceFile(resourceName, this)
 
 /** Converts the receiver [PuzzleMeta] to its [PuzzleInput.Default] form. */
-val PuzzleMeta.input: PuzzleInput.Default get() = PuzzleInput.Default(this)
+public val PuzzleMeta.input: PuzzleInput.Default get() = PuzzleInput.Default(this)
 
 /**
  * Retrieves the [puzzle input][PuzzleInput.Default] given the specified arguments.
@@ -207,7 +209,7 @@ val PuzzleMeta.input: PuzzleInput.Default get() = PuzzleInput.Default(this)
  * @param inputFileName The input's file name.
  * @param resourceLoader Resource loader to resolve the [inputFileName].
  */
-fun PuzzleMeta.getPuzzleInput(
+public fun PuzzleMeta.getPuzzleInput(
     inputFileName: String,
     resourceLoader: ResourceLoader = ResourceLoader.Default
 ): PuzzleInput.Default = PuzzleInput.Default(this, inputFileName, resourceLoader)
