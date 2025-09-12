@@ -32,4 +32,12 @@ enum class Direction(
             Right -> Left
         }
     }
+
+    /** Gets the 90° clockwise version of this direction.  */
+    fun rotateClockwise90(): Direction = when(this) {
+        Up -> Right
+        Down -> Left
+        Left -> Up
+        Right -> Down
+    }
 }
