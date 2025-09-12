@@ -8,7 +8,7 @@ group = "com.edricchan.aoc"
 version = "1.0-SNAPSHOT"
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(21)
 }
 
 tasks {
