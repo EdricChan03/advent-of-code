@@ -63,7 +63,7 @@ public fun getInputFilePath(
 ): String = "aoc/year$year/day$day/$fileName"
 
 /**
- * Retrieves the file path for the given [meta], optionally allowing
+ * Retrieves the file path for the given [PuzzleMeta], optionally allowing
  * for the [fileName] to be specified.
  *
  * This is equivalent to the string `"aoc/year${meta.year}/day${meta.day}/$fileName"`.
@@ -94,7 +94,7 @@ public fun getInputFile(
     ?: throw FileNotFoundException("Input file for year $year, day $day does not exist")
 
 /**
- * Retrieves the input text file for a given [meta] as a [File].
+ * Retrieves the input text file for the receiver [PuzzleMeta] as a [File].
  * @receiver The puzzle metadata, consisting of [PuzzleMeta.year] and [PuzzleMeta.day].
  * @param fileName The text file's name.
  * @param resourceLoader The resource loader to be used to retrieve the input text file.
@@ -126,7 +126,7 @@ public fun getInputPath(
     ?: throw FileNotFoundException("Input file for year $year, day $day does not exist")
 
 /**
- * Retrieves the input text file for a given [meta] as a [Path].
+ * Retrieves the input text file for the receiver [PuzzleMeta] as a [Path].
  * @receiver The puzzle's metadata, consisting of [PuzzleMeta.year] and [PuzzleMeta.day].
  * @param fileName The text file's name.
  * @param resourceLoader The resource loader to be used to retrieve the input text file.
@@ -155,7 +155,7 @@ public fun getInput(
 ): List<String> = getInputPath(year, day, fileName, resourceLoader).readLines()
 
 /**
- * Retrieves the input text file's contents for a given [meta].
+ * Retrieves the input text file's contents for the receiver [PuzzleMeta].
  * @receiver The puzzle metadata, consisting of [PuzzleMeta.year] and [PuzzleMeta.day].
  * @param fileName The text file's name.
  * @param resourceLoader The resource loader to be used to retrieve the input text file.
@@ -184,7 +184,7 @@ public fun <T> useInput(
 ): T = getInputPath(year, day, fileName, resourceLoader).useLines(block = block)
 
 /**
- * Retrieves the input text file's contents for a given [meta] as a [Sequence].
+ * Retrieves the input text file's contents for the receiver [PuzzleMeta] as a [Sequence].
  * @receiver The puzzle metadata, consisting of [PuzzleMeta.year] and [PuzzleMeta.day].
  * @param fileName The text file's name.
  * @param resourceLoader The resource loader to be used to retrieve the input text file.
