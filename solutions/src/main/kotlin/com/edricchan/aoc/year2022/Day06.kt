@@ -1,13 +1,16 @@
 package com.edricchan.aoc.year2022
 
 import com.edricchan.aoc.puzzle.Puzzle
+import com.edricchan.aoc.puzzle.input.PuzzleInput
 import com.edricchan.aoc.puzzle.solve
 import com.edricchan.aoc.utils.isUnique
 
 fun main() = solve { Day06() }
 
 class Day06(dayInput: String? = null) : Puzzle<Int, Int>(
-    year = 2022, day = 6, customInput = dayInput
+    year = 2022,
+    day = 6,
+    inputData = dayInput?.let { PuzzleInput.Raw(it) } ?: PuzzleInput.Default(year = 2022, day = 6)
 ) {
     private fun getMarkerIndex(bufferSize: Int): Int {
         val buffer = input

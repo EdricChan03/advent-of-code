@@ -34,27 +34,6 @@ abstract class Puzzle<PartOneOutput, PartTwoOutput>(
         inputData = PuzzleInput.Default(year, day, inputFileName)
     )
 
-    @Deprecated(
-        "Use the constructor that takes a PuzzleInput instead",
-        ReplaceWith(
-            "Puzzle<PartOneOutput, PartTwoOutput>(" +
-                "year = year, day = day, customInput = PuzzleInput.Raw(it), inputFileName = inputFileName)",
-            "com.edricchan.aoc.puzzle.PuzzleInput"
-        )
-    )
-    constructor(
-        year: Int,
-        day: Int,
-        customInput: String?,
-        inputFileName: String = defaultInputFileName
-    ) : this(
-        year = year,
-        day = day,
-        inputData = customInput?.let { PuzzleInput.Raw(it) } ?: PuzzleInput.Default(
-            Year.of(year), day, inputFileName
-        ),
-    )
-
     /** This puzzle's metadata. */
     val meta = PuzzleMeta(Year.of(year), day)
 
