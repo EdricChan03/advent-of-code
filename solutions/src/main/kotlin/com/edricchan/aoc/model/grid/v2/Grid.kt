@@ -62,11 +62,11 @@ data class MutableGrid1D<Cell : GridPoint>(
         set(point.x, point.y, value)
     }
 
-    fun update(x: Int, y: Int, updateFn: (Cell) -> Cell) {
+    inline fun update(x: Int, y: Int, updateFn: (Cell) -> Cell) {
         set(x = x, y = y, value = updateFn(get(x = x, y = y)))
     }
 
-    fun update(point: Point, updateFn: (Cell) -> Cell) {
+    inline fun update(point: Point, updateFn: (Cell) -> Cell) {
         set(point = point, value = updateFn(get(point = point)))
     }
 }
